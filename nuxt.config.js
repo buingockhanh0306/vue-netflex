@@ -2,7 +2,7 @@ import colors from "vuetify/es5/util/colors";
 
 export default {
   head: {
-    title: "test",
+    title: "NetFlex",
     htmlAttrs: {
       lang: "en",
     },
@@ -26,6 +26,13 @@ export default {
 
   buildModules: ["@nuxtjs/vuetify"],
 
+  modules: ["@nuxtjs/axios"],
+  plugins: ["~/plugins/axios.js"],
+
+  axios: {
+    baseURL: process.env.BASE_URL,
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
@@ -46,5 +53,9 @@ export default {
         },
       },
     },
+  },
+  env: {
+    apiKey: process.env.API_KEY,
+    imageURL: process.env.IMAGE_URL,
   },
 };
