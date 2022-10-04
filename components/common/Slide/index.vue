@@ -1,10 +1,15 @@
 <template>
   <div>
     <VueSlickCarousel v-bind="responsiveSlide">
-      <div class="d-flex justify-center" v-for="item in 16" :key="item">
+      <div class="d-flex justify-center" v-for="item in data" :key="item.id">
         <div class="d-flex justify-center card-image">
           <div>
-            <img width="100%" height="auto" src="/images/logo.png" alt="" />
+            <img
+              width="100%"
+              height="auto"
+              :src="imageURL + item.poster_path"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -21,11 +26,15 @@ export default {
   name: "MyComponent",
   components: { VueSlickCarousel },
   props: {
-    data: Object,
+    data: Array,
   },
+
   computed: {
     responsiveSlide() {
       return responsiveSlide;
+    },
+    imageURL() {
+      return process.env.imageURL;
     },
   },
 };
@@ -34,7 +43,7 @@ export default {
 .card-image {
   background-color: #888;
   width: 100%;
-  margin: 0 20px;
+  margin: 0 10px;
   height: 200px;
 }
 </style>

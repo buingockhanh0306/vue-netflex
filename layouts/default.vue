@@ -59,7 +59,7 @@
       <!-- End Drawer -->
     </v-card>
     <v-main>
-      <Slide v-if="this.$route.path === '/'" />
+      <SlideBanner v-if="this.$route.path === '/'" />
       <v-container>
         <Nuxt />
       </v-container>
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import Slide from "../components/HomePage/Slide/index.vue";
+import SlideBanner from "../components/HomePage/SlideBanner/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
@@ -80,7 +80,7 @@ export default {
       ],
     };
   },
-  components: { Slide },
+  components: { SlideBanner },
 };
 </script>
 <style lang="scss" scoped>

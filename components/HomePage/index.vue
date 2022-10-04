@@ -1,17 +1,21 @@
 <template>
   <div>
-    <Popular />
+    <Popular text="Films Popular" :dataSlide="dataFilmsPopular" />
+    <Popular text="TV Popular" :dataSlide="dataTVPopular" />
   </div>
 </template>
 
 <script>
-import Slide from "./Slide/index.vue";
-import ButtonDefault from "../common/Button/ButtonDefault.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import Popular from "./Popular/index.vue";
+import { mockData } from "../../pages/mockData";
 export default {
   name: "HomePage",
-  components: { Slide, ButtonDefault, Popular },
+  components: { Popular },
+  props: {
+    dataFilmsPopular: Array,
+    dataTVPopular: Array,
+  },
   data() {
     return {
       films: [],

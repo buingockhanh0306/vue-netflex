@@ -1,12 +1,8 @@
 <template>
   <div>
     <div>
-      <HeadingSlide text="Films Popular" />
-      <Slide />
-    </div>
-    <div class="tv-popular">
-      <HeadingSlide text="TV Popular" />
-      <Slide />
+      <HeadingSlide :text="text" />
+      <Slide :data="dataSlide" />
     </div>
   </div>
 </template>
@@ -14,7 +10,14 @@
 <script>
 import Slide from "../../common/Slide/index.vue";
 import HeadingSlide from "../../common/Text/HeadingSlide.vue";
-export default { components: { Slide, HeadingSlide } };
+import { mockData } from "../../../pages/mockData";
+export default {
+  components: { Slide, HeadingSlide },
+  props: {
+    text: String,
+    dataSlide: Array,
+  },
+};
 </script>
 
 <style>
