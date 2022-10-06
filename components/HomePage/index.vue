@@ -2,6 +2,7 @@
   <div>
     <Popular text="Films Popular" :dataSlide="dataFilmsPopular" />
     <Popular text="TV Popular" :dataSlide="dataTVPopular" />
+    <button @click="handleClick()">click</button>
   </div>
 </template>
 

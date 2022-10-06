@@ -27,12 +27,23 @@ export default {
 
   buildModules: ["@nuxtjs/vuetify"],
 
-  modules: ["@nuxtjs/axios"],
-  plugins: ["~/plugins/axios.js"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+  plugins: ["~/plugins/axios.js", "~/plugins/swiper.js"],
 
   axios: {
     baseURL: process.env.BASE_URL,
+    credentials: false,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "text/plain",
+    },
   },
+  // proxy: {
+  //   "/api/": {
+  //     target: "https://api.themoviedb.org/3",
+  //     changeOrigin: true,
+  //   },
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

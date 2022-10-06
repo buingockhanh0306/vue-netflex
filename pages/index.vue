@@ -1,32 +1,31 @@
 <template>
-  <HomePage :dataFilmsPopular="dataMock" :dataTVPopular="dataMock" />
+  <HomePage :dataFilmsPopular="posts" :dataTVPopular="posts" />
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import HomePage from "../components/HomePage/index.vue";
 import { mockData } from "./mockData";
 export default {
   name: "IndexPage",
   components: { HomePage },
   data() {
-    return {
-      filmsPopular: [],
-    };
+    return {};
   },
   computed: {
-    ...mapGetters(["getCounter"]),
-    ...mapActions("filmsStore", ["getFilmsData", "setLanguage"]),
+    ...mapState("filmsStore", ["posts"]),
+    ...mapActions("filmsStore", ["getPosts", "setLanguage"]),
     dataMock() {
       return mockData;
     },
   },
-  created() {
-    const getData = this.$store.dispatch("filmsStore/getFilmsPopular");
-    if (getData) {
-      this.filmsPopular = getData.data;
-    }
-    console.log(this.filmsPopular);
+  async mounted() {
+    await this.getData();
+  },
+  methods: {
+    async getData() {
+      await this.$store.dispatch("filmsStore/getPosts");
+    },
   },
 };
 </script>

@@ -1,38 +1,28 @@
 <template>
   <div>
-    <VueSlickCarousel v-bind="responsiveSlide">
-      <div class="d-flex justify-center" v-for="item in data" :key="item.id">
-        <div class="d-flex justify-center card-image">
-          <div>
-            <img
-              width="100%"
-              height="auto"
-              :src="imageURL + item.poster_path"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </VueSlickCarousel>
+    <swiper :options="responsiveSwiper">
+      <swiper-slide class="swiper" v-for="(item, index) in data" :key="index"
+        ><div class="card-image">{{ item.title }}</div>
+      </swiper-slide>
+      <div slot="button-prev" class="swiper-button-prev" />
+      <div slot="button-next" class="swiper-button-next" />
+    </swiper>
   </div>
 </template>
 <script>
-import VueSlickCarousel from "vue-slick-carousel";
-import "vue-slick-carousel/dist/vue-slick-carousel.css";
-import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
-import { responsiveSlide } from "../../../constants/responsiveSlide";
-
+import { responsiveSwiper } from "../../../constants/responsiveSwiper";
 export default {
   name: "MyComponent",
-  components: { VueSlickCarousel },
+  components: {},
   props: {
     data: Array,
   },
-
+  data() {
+    return {
+      responsiveSwiper,
+    };
+  },
   computed: {
-    responsiveSlide() {
-      return responsiveSlide;
-    },
     imageURL() {
       return process.env.imageURL;
     },
@@ -40,6 +30,14 @@ export default {
 };
 </script>
 <style>
+.swiper {
+  display: flex;
+  gap: 20px;
+}
+.swiper-button-next {
+  transform: translateX(20px);
+  z-index: 99999999999;
+}
 .card-image {
   background-color: #888;
   width: 100%;

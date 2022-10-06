@@ -1,3 +1,6 @@
+export const state = () => ({
+  posts: [],
+});
 export const actions = {
   async getFilmsDetail({}, payload) {
     return this.$axios.get(`/movie/${payload.movie_id}`);
@@ -31,5 +34,21 @@ export const actions = {
   },
   async getFilmsUpComing() {
     return this.$axios.get(`/movie/upcoming`);
+  },
+  async getPosts({ commit }) {
+    console.log("action");
+    const dataPosts = await this.$axios.get("/posts");
+    if (dataPosts.data) {
+      let data = dataPosts.data;
+      commit("SET_POSTS", data);
+    }
+    return dataPosts;
+  },
+};
+
+export const mutations = {
+  SET_POSTS(state, data) {
+    console.log("mutation");
+    state.posts = data;
   },
 };
