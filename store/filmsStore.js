@@ -27,10 +27,12 @@ export const actions = {
     return this.$axios.get(`/movie/now_playing`);
   },
   async getFilmsPopular() {
-    return this.$axios.get(`/movie/popular`);
+    const filmsData = await this.$axios.get(`/movie/popular`);
+    return filmsData.data.results;
   },
   async getFilmsTopRate() {
-    return this.$axios.get(`/movie/top_rated`);
+    const filmsData = await this.$axios.get(`/movie/top_rated`);
+    return filmsData.data.results;
   },
   async getFilmsUpComing() {
     return this.$axios.get(`/movie/upcoming`);
@@ -43,6 +45,11 @@ export const actions = {
       commit("SET_POSTS", data);
     }
     return dataPosts;
+  },
+
+  async getUsers() {
+    const dataUsers = await this.$axios.get("/users");
+    return dataUsers.data;
   },
 };
 

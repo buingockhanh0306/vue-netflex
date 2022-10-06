@@ -1,5 +1,5 @@
 <template>
-  <HomePage :dataFilmsPopular="posts" :dataTVPopular="posts" />
+  <HomePage :dataFilmsPopular="filmsPopular" :dataTVPopular="tvPopular" />
 </template>
 
 <script>
@@ -10,11 +10,14 @@ export default {
   name: "IndexPage",
   components: { HomePage },
   data() {
-    return {};
+    return {
+      filmsPopular: [],
+      tvPopular: [],
+    };
   },
   computed: {
     ...mapState("filmsStore", ["posts"]),
-    ...mapActions("filmsStore", ["getPosts", "setLanguage"]),
+    ...mapActions("filmsStore", "tvStore", ["getFilmsPopular", "getTVPopular"]),
     dataMock() {
       return mockData;
     },
@@ -24,7 +27,14 @@ export default {
   },
   methods: {
     async getData() {
-      await this.$store.dispatch("filmsStore/getPosts");
+      // await this.$store.dispatch("filmsStore/getPosts");
+      const dataFilmsPopular = await this.$store.dispatch(
+        "filmsStore/getFilmsPopular"
+      );
+      const dataTVPOpular = await this.$store.dispatch("tvStore/getTVPopular");
+      this.filmsPopular = dataFilmsPopular;
+      this.tvPopular = dataTVPOpular;
+      console.log("get done");
     },
   },
 };

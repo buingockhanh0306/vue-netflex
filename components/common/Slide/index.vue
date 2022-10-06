@@ -1,8 +1,21 @@
 <template>
   <div>
-    <swiper :options="responsiveSwiper">
-      <swiper-slide class="swiper" v-for="(item, index) in data" :key="index"
-        ><div class="card-image">{{ item.title }}</div>
+    <swiper class="swiper" :options="responsiveSwiper">
+      <swiper-slide
+        class="slide-item"
+        v-for="(item, index) in data"
+        :key="index"
+      >
+        <div class="card-image">
+          <img
+            class="image-poster"
+            :src="imageURL + item.backdrop_path"
+            alt=""
+          />
+          <div class="card-title" @click="handleViewDetail(item.id)">
+            {{ item.title || item.name }}
+          </div>
+        </div>
       </swiper-slide>
       <div slot="button-prev" class="swiper-button-prev" />
       <div slot="button-next" class="swiper-button-next" />
@@ -27,21 +40,40 @@ export default {
       return process.env.imageURL;
     },
   },
+  methods: {
+    handleViewDetail(id) {
+      this.$router.push(`/films/${id}`);
+    },
+  },
 };
 </script>
 <style>
 .swiper {
   display: flex;
-  gap: 20px;
+  padding: 0 30px;
 }
-.swiper-button-next {
+/* .swiper-button-next {
   transform: translateX(20px);
   z-index: 99999999999;
+} */
+.image-poster {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.slide-item {
+  /* width: 100%; */
 }
 .card-image {
-  background-color: #888;
+  box-sizing: border-box;
+  background-color: transparent;
   width: 100%;
-  margin: 0 10px;
-  height: 200px;
+  border-radius: 10px;
+  /* padding: 0 10px; */
+}
+.card-title {
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
 }
 </style>

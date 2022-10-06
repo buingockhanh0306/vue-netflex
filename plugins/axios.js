@@ -1,10 +1,10 @@
 export default function ({ $axios, app, redirect }) {
   $axios.onRequest((config) => {
-    // config.params = {
-    //   api_key: process.env.apiKey,
-    //   language: localStorage.getItem("lang"),
-    //   append_to_response: "videos",
-    // };
+    config.params = {
+      api_key: process.env.apiKey,
+      language: "vi",
+      append_to_response: "videos",
+    };
   });
 
   $axios.onError((error) => {

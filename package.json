@@ -15,11 +15,15 @@
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
     "swiper": "^6.8.1",
-    "vue-awesome-swiper": "^4.1.1",
     "vue": "^2.7.10",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-lazyload": "^3.0.0-rc.2",
     "vue-server-renderer": "^2.7.10",
     "vue-slick-carousel": "^1.0.6",
     "vue-template-compiler": "^2.7.10"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sass": "^1.55.0",
+    "sass-loader": "10"
+  }
 }

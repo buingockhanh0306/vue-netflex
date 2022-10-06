@@ -1,15 +1,34 @@
 <template>
   <v-carousel
     cycle
+    :hide-delimiters="true"
     interval="600000"
     :height="$vuetify.breakpoint.xs ? 200 : 700"
     hide-delimiter-background
     show-arrows-on-hover
   >
-    <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
+    <v-carousel-item
+      v-for="(item, i) in data"
+      :key="item.id"
+      :src="imageURL + item.backdrop_path"
+    >
       <div class="k-text-banner d-none d-md-block">
         <h2 class="k-title">{{ item.title }}</h2>
-        <p>{{ item.description }}</p>
+        <p>{{ item.overview }}</p>
+        <div class="group-button">
+          <ButtonIcon
+            @onClick="handleViewDeetail(item.id)"
+            color="green"
+            text="Xem ngay"
+            icon="mdi-cloud-upload"
+          />
+          <ButtonIcon
+            @onClick="handleViewDeetail(item.id)"
+            color="red"
+            text="Xem Trailer"
+            icon="mdi-cloud-upload"
+          />
+        </div>
       </div>
     </v-carousel-item>
   </v-carousel>
@@ -17,42 +36,22 @@
 
 <script>
 import ButtonDefault from "../../common/Button/ButtonDefault.vue";
+import ButtonIcon from "../../common/Button/ButtonIcon.vue";
 export default {
-  data() {
-    return {
-      items: [
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-          title: "Title demo 1",
-          description:
-            "Vue.js is an amazing JavaScript framework which you can use to build highly engaging user interfaces and single page applications. You can join my bestselling course on Vue.js, here on Udemy, if you want to learn more about this awesome framework!",
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
-          title: "Title demo 2",
-          description:
-            "Vue.js is an amazing JavaScript framework which you can use to build highly engaging user interfaces and single page applications. You can join my bestselling course on Vue.js, here on Udemy, if you want to learn more about this awesome framework!",
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
-          title: "Title demo 3",
-          description: "description 3",
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
-          title: "Title demo 4",
-          description: "description 4",
-        },
-      ],
-      model: 0,
-    };
+  props: {
+    data: Array,
   },
-  methods: {
-    getPath() {
-      console.log(this.$route);
+  computed: {
+    imageURL() {
+      return process.env.imageURL;
     },
   },
-  components: { ButtonDefault },
+  methods: {
+    handleViewDeetail(id) {
+      this.$router.push(`/films/${id}`);
+    },
+  },
+  components: { ButtonDefault, ButtonIcon },
 };
 </script>
 
@@ -68,5 +67,10 @@ export default {
   .k-title {
     font-size: 48px;
   }
+}
+.group-button {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
 }
 </style>

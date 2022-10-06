@@ -14,6 +14,6 @@ export default {
 .heading {
   font-weight: 500;
   font-size: 42px;
-  margin: 40px 0;
+  margin-top: 40px;
 }
 </style>

@@ -59,7 +59,7 @@
       <!-- End Drawer -->
     </v-card>
     <v-main>
-      <SlideBanner v-if="this.$route.path === '/'" />
+      <SlideBanner v-if="this.$route.path === '/'" :data="filmsTopRate" />
       <v-container>
         <Nuxt />
       </v-container>
@@ -68,11 +68,13 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import SlideBanner from "../components/HomePage/SlideBanner/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
     return {
+      filmsTopRate: [],
       drawer: false,
       navItem: [
         { name: "Home", icon: "mdi-home", navLink: "/" },
@@ -80,7 +82,21 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapActions("filmsStore", ["getFilmsTopRate"]),
+  },
   components: { SlideBanner },
+  async mounted() {
+    await this.getFilmsToRate();
+  },
+  methods: {
+    async getFilmsToRate() {
+      const dataFilmsTopRate = await this.$store.dispatch(
+        "filmsStore/getFilmsTopRate"
+      );
+      this.filmsTopRate = dataFilmsTopRate.filter((item, index) => index < 6);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

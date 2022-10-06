@@ -2,6 +2,7 @@
   <div>
     <div>
       <HeadingSlide :text="text" />
+      <div class="line"></div>
       <Slide :data="dataSlide" />
     </div>
   </div>
@@ -10,7 +11,6 @@
 <script>
 import Slide from "../../common/Slide/index.vue";
 import HeadingSlide from "../../common/Text/HeadingSlide.vue";
-import { mockData } from "../../../pages/mockData";
 export default {
   components: { Slide, HeadingSlide },
   props: {
@@ -20,8 +20,11 @@ export default {
 };
 </script>
 
-<style>
-.tv-popular {
-  margin-top: 40px;
+<style scoped>
+.line {
+  width: 100%;
+  height: 1px;
+  margin: 12px 0 40px;
+  background-color: #333;
 }
 </style>

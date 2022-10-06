@@ -17,10 +17,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  css: ["@/assets/css/global.scss"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -28,7 +25,11 @@ export default {
   buildModules: ["@nuxtjs/vuetify"],
 
   modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
-  plugins: ["~/plugins/axios.js", "~/plugins/swiper.js"],
+  plugins: [
+    "~/plugins/axios.js",
+    "~/plugins/swiper.js",
+    "~/plugins/lazyLoad.js",
+  ],
 
   axios: {
     baseURL: process.env.BASE_URL,
@@ -38,14 +39,6 @@ export default {
       "Content-Type": "text/plain",
     },
   },
-  // proxy: {
-  //   "/api/": {
-  //     target: "https://api.themoviedb.org/3",
-  //     changeOrigin: true,
-  //   },
-  // },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
   vuetify: {

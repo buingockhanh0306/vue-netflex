@@ -24,7 +24,8 @@ export const actions = {
     return this.$axios.get(`/tv/now_playing`);
   },
   async getTVPopular() {
-    return this.$axios.get(`/tv/popular`);
+    const TVData = await this.$axios.get(`/tv/popular`);
+    return TVData.data.results;
   },
   async getTVTopRate() {
     return this.$axios.get(`/tv/top_rated`);

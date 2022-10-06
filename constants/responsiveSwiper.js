@@ -1,13 +1,14 @@
 export const responsiveSwiper = {
   slidesPerView: 4,
+  spaceBetween: 20,
   swiperSlide: {
     isNext: true,
   },
-  autoplay: {
-    delay: 3000,
-    pauseOnMouseEnter: true,
-    disableOnInteraction: false,
-  },
+  // autoplay: {
+  //   delay: 3000,
+  //   pauseOnMouseEnter: true,
+  //   disableOnInteraction: false,
+  // },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
