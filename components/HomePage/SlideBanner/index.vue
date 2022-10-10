@@ -10,7 +10,7 @@
     <v-carousel-item
       v-for="item in data"
       :key="item.id"
-      src="/images/back_drop.png"
+      :src="imageURL + item.backdrop_path"
     >
       <div class="k-text-banner d-none d-md-block">
         <h2 class="k-title">{{ item.title }}</h2>
@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     handleWatch(id) {
-      console.log(this.$route);
       if (this.$route.path === "/") {
         this.$router.push(`/films/${id}/watch`);
       } else {

@@ -1,7 +1,11 @@
 <template>
   <div class="sidebar-right">
     <div class="sidebar-right-item" v-for="item in data" :key="item.id">
-      <v-img max-width="30px" height="30px" src="/images/logo.png"></v-img>
+      <v-img
+        max-width="30px"
+        height="30px"
+        :src="imageURL + item.poster_path"
+      ></v-img>
       <div class="mt-4">
         <h5>{{ item.title }}</h5>
         <Rating :value="item.vote_average" :size="12" />
@@ -17,10 +21,15 @@ export default {
     data: Array,
   },
   components: { Rating },
+  computed: {
+    imageURL() {
+      return process.env.imageURL;
+    },
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
 .sidebar-right-item {
   display: flex;
   align-items: center;
@@ -34,20 +43,5 @@ export default {
 .image-character {
   height: 200px;
   border-radius: 10px;
-}
-@media only screen and (max-width: 768px) {
-  .detail-button {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    position: fixed;
-    background-color: #212121;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-  }
 }
 </style>

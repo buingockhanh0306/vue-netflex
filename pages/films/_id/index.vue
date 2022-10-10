@@ -1,8 +1,8 @@
 <template>
   <div>
     <DetailPage
-      :dataPopular="filmsPopular"
-      textSlide="Phim lien quan"
+      :dataDetail="filmDetail"
+      textSlide="Phim Top"
       :dataTopRate="filmsTopRate"
     />
   </div>
@@ -15,24 +15,25 @@ import DetailPage from "../../../components/DetailPage/index.vue";
 export default {
   components: { ButtonDefault, DetailPage },
   computed: {
-    ...mapState("filmsStore", ["posts", "page"]),
+    ...mapState("filmsStore", ["page"]),
   },
   data() {
     return {
       filmsPopular: [],
       filmsTopRate: [],
+      filmDetail: [],
     };
   },
 
   async mounted() {
     await this.getFilmsPopular();
     await this.getFilmsTopRate();
+    await this.getFilmDetail();
   },
   methods: {
-    ...mapState("filmsStore", ["posts", "page"]),
     ...mapActions("filmsStore", "tvStore", [
       "getFilmsPopular",
-      "getTVPopular",
+      "getFilmDetail",
       "getFilmsTopRate",
     ]),
     async getFilmsPopular() {
@@ -43,8 +44,16 @@ export default {
         }
       );
       this.filmsPopular = dataFilms;
-      // const dataTVPopular = await this.$store.dispatch("tvStore/getTVPopular");
-      // this.tvPopular = dataTVPopular;
+    },
+
+    async getFilmDetail() {
+      const dataFilms = await this.$store.dispatch(
+        "filmsStore/getFilmsDetail",
+        {
+          movie_id: this.$route.params.id,
+        }
+      );
+      this.filmDetail = dataFilms;
     },
 
     async getFilmsTopRate() {
@@ -53,6 +62,7 @@ export default {
       );
       this.filmsTopRate = dataFilms.filter((item, index) => index < 10);
     },
+
     handleWatch() {
       this.$router.push(`${this.$route.params.id}/watch`);
     },

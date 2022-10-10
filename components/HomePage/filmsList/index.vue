@@ -5,7 +5,7 @@
     <div class="d-flex flex-wrap py-4 justify-space-between">
       <div class="list-item" v-for="item in data" :key="item.id">
         <ImageCard
-          imageSrc="/images/back_drop.png"
+          :imageSrc="imageURL + item.backdrop_path"
           :title="item.title"
           @onClick="handleViewDetail(item.id)"
         />
@@ -24,6 +24,11 @@ export default {
     text: String,
     data: Array,
     totalPage: Number,
+  },
+  computed: {
+    imageURL() {
+      return process.env.imageURL;
+    },
   },
   methods: {
     handleViewDetail(id) {

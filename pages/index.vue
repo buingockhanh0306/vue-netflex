@@ -1,11 +1,11 @@
 <template>
   <HomePage
-    textSlide1="Films Comming Up"
-    textSlide2="Films Popular"
-    textList="Films Top Rate"
-    :dataComingUp="filmsPopular"
+    textSlide1="Phim sắp chiếu"
+    textSlide2="Phim Top"
+    textList="Phim phổ biến"
+    :dataUpComing="filmsUpComing"
+    :dataTopRate="filmsTopRate"
     :dataPopular="filmsPopular"
-    :dataList="filmsTopRate"
     :totalPage="7"
   />
 </template>
@@ -21,6 +21,7 @@ export default {
       tvPopular: [],
       filmsPopular: [],
       filmsTopRate: [],
+      filmsUpComing: [],
     };
   },
   computed: {
@@ -29,19 +30,21 @@ export default {
       "getFilmsPopular",
       "getTVPopular",
       "getFilmsTopRate",
+      "getFilmsUpComing",
     ]),
   },
   async mounted() {
-    await this.getData();
+    await this.getFilmsPopular();
     await this.getFilmsTopRate();
+    await this.getFilmsUpComing();
   },
   watch: {
     page() {
-      this.getData();
+      this.getFilmsPopular();
     },
   },
   methods: {
-    async getData() {
+    async getFilmsPopular() {
       const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsPopular",
         {
@@ -49,6 +52,16 @@ export default {
         }
       );
       this.filmsPopular = dataFilms;
+    },
+
+    async getFilmsUpComing() {
+      const dataFilms = await this.$store.dispatch(
+        "filmsStore/getFilmsUpComing",
+        {
+          page: this.page,
+        }
+      );
+      this.filmsUpComing = dataFilms;
     },
 
     async getFilmsTopRate() {

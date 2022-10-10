@@ -6,7 +6,7 @@ export const actions = {
     commit("SET_PAGE", payload);
   },
   async getFilmsDetail({}, payload) {
-    const filmsData = this.$axios.get(`/movie/${payload.movie_id}`);
+    const filmsData = await this.$axios.get(`/movie/${payload.movie_id}`);
     return filmsData.data;
   },
   async getFilmsCredits({}, payload) {
@@ -34,14 +34,15 @@ export const actions = {
     const filmsData = await this.$axios.get(
       `/movie/popular?page=${payload.page}`
     );
-    return filmsData.data;
+    return filmsData.data.results;
   },
   async getFilmsTopRate() {
     const filmsData = await this.$axios.get(`/movie/top_rated`);
-    return filmsData.data;
+    return filmsData.data.results;
   },
   async getFilmsUpComing() {
-    return this.$axios.get(`/movie/upcoming`);
+    const filmsData = await this.$axios.get(`/movie/upcoming`);
+    return filmsData.data.results;
   },
 };
 

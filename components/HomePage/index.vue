@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Popular :text="textSlide1" :dataSlide="dataComingUp" />
-    <Popular :text="textSlide2" :dataSlide="dataPopular" />
-    <FilmsList :text="textList" :data="dataList" :totalPage="totalPage" />
+    <Popular :text="textSlide1" :dataSlide="dataUpComing" />
+    <Popular :text="textSlide2" :dataSlide="dataTopRate" />
+    <FilmsList :text="textList" :data="dataPopular" :totalPage="totalPage" />
   </div>
 </template>
 
@@ -16,9 +16,9 @@ export default {
     textSlide1: String,
     textSlide2: String,
     textList: String,
-    dataComingUp: Array,
+    dataUpComing: Array,
+    dataTopRate: Array,
     dataPopular: Array,
-    dataList: Array,
     totalPage: Number,
   },
   data() {

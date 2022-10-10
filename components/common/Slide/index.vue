@@ -7,7 +7,7 @@
         :key="index"
       >
         <ImageCard
-          imageSrc="/images/back_drop.png"
+          :imageSrc="imageURL + item.backdrop_path"
           :title="item.title || item.name"
           @onClick="handleViewDetail(item.id)"
         />

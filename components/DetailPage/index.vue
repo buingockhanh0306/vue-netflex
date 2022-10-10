@@ -3,30 +3,24 @@
     <v-container class="container">
       <v-row :align="align" no-gutters>
         <v-col class="col-md-3 px-4">
-          <v-img
-            alt=""
-            src="https://image.tmdb.org/t/p/w500/kMTcwNRfFKCZ0O2OaBZS0nZ2AIe.jpg"
-          ></v-img>
+          <v-img alt="" :src="imageURL + dataDetail.poster_path"></v-img>
         </v-col>
         <v-col class="col-md-6 px-4 mb-6">
           <div>
-            <h1>Something</h1>
-            <p>The loai:</p>
-            <p>Ngay phat hanh:</p>
-            <p>Thoi luong:</p>
+            <h1>{{ dataDetail.title }}</h1>
+            <p>Thế loại: {{ genres }}</p>
+            <p>Ngày phát hành: {{ dataDetail.release_date }}</p>
+            <p>Thời lượng: {{ dataDetail.runtime }} phút</p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloribus, non eius ducimus cumque laudantium minus delectus
-              dolores, perspiciatis nobis animi, est nesciunt molestias iusto
-              nemo? Reiciendis debitis a facere voluptatibus!est nesciunt
-              molestias iusto nemo? Reiciendis debitis a facere voluptatibus
+              {{ dataDetail.overview }}
             </p>
-            <Rating :value="6.5" :size="20" />
+            <Rating :value="dataDetail.vote_average" :size="20" />
             <p>
-              (8.715<v-icon color="warning">mdi-star</v-icon>/16711 lượt bình
-              chọn)
+              ({{ voteAverage }}<v-icon color="warning">mdi-star</v-icon>/{{
+                dataDetail.vote_count
+              }}
+              lượt bình chọn)
             </p>
-            <span>Link nha phat hanh: <a target="_blank" href="">Link</a></span>
             <div class="detail-button">
               <ButtonIcon
                 @onClick="handleWatch(item.id)"
@@ -50,7 +44,7 @@
       </v-row>
 
       <section class="d-none d-md-block">
-        <HeadingSlide text="cac dien vien chinh" />
+        <HeadingSlide text="Diễn viên chính" />
         <div class="line"></div>
         <v-row>
           <v-col class="col-md-2 px-2" v-for="(item, index) in 6" :key="index">
@@ -67,7 +61,7 @@
       </section>
 
       <section>
-        <Popular :text="textSlide" :dataSlide="dataPopular" />
+        <Popular :text="textSlide" :dataSlide="dataTopRate" />
       </section>
     </v-container>
   </div>
@@ -85,6 +79,22 @@ export default {
     textSlide: String,
     dataPopular: Array,
     dataTopRate: Array,
+    dataDetail: Object,
+  },
+  computed: {
+    imageURL() {
+      return process.env.imageURL;
+    },
+    voteAverage() {
+      if (this.dataDetail.vote_average) {
+        return this.dataDetail.vote_average.toFixed(1);
+      } else return 0;
+    },
+    genres() {
+      if (this.dataDetail.genres) {
+        return this.dataDetail.genres.map((item) => item.name).join(" / ");
+      }
+    },
   },
   methods: {
     handleClick() {
@@ -97,5 +107,22 @@ export default {
 <style scoped>
 .container {
   margin-bottom: 100px;
+}
+.detail-button {
+  display: flex;
+  gap: 30px;
+}
+@media only screen and (max-width: 768px) {
+  .detail-button {
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    position: fixed;
+    background-color: #212121;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
 }
 </style>
