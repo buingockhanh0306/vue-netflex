@@ -6,27 +6,23 @@
         v-for="(item, index) in data"
         :key="index"
       >
-        <div class="card-image">
-          <img
-            class="image-poster"
-            :src="imageURL + item.backdrop_path"
-            alt=""
-          />
-          <div class="card-title" @click="handleViewDetail(item.id)">
-            {{ item.title || item.name }}
-          </div>
-        </div>
+        <ImageCard
+          imageSrc="/images/back_drop.png"
+          :title="item.title || item.name"
+          @onClick="handleViewDetail(item.id)"
+        />
       </swiper-slide>
-      <div slot="button-prev" class="swiper-button-prev" />
-      <div slot="button-next" class="swiper-button-next" />
+      <div slot="button-prev" class="swiper-button-prev d-none d-md-block" />
+      <div slot="button-next" class="swiper-button-next d-none d-md-block" />
     </swiper>
   </div>
 </template>
 <script>
 import { responsiveSwiper } from "../../../constants/responsiveSwiper";
+import ImageCard from "../ImageCard/index.vue";
 export default {
   name: "MyComponent",
-  components: {},
+  components: { ImageCard },
   props: {
     data: Array,
   },
@@ -42,7 +38,11 @@ export default {
   },
   methods: {
     handleViewDetail(id) {
-      this.$router.push(`/films/${id}`);
+      if (this.$route.path === "/tv") {
+        this.$router.push(`/tv/${id}`);
+      } else {
+        this.$router.push(`/films/${id}`);
+      }
     },
   },
 };
@@ -56,24 +56,4 @@ export default {
   transform: translateX(20px);
   z-index: 99999999999;
 } */
-.image-poster {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-.slide-item {
-  /* width: 100%; */
-}
-.card-image {
-  box-sizing: border-box;
-  background-color: transparent;
-  width: 100%;
-  border-radius: 10px;
-  /* padding: 0 10px; */
-}
-.card-title {
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-}
 </style>

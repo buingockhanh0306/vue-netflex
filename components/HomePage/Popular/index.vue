@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .line {
   width: 100%;
   height: 1px;

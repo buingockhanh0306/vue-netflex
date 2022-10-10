@@ -1,9 +1,13 @@
 export const state = () => ({
-  posts: [],
+  page: 1,
 });
 export const actions = {
+  setPage({ commit }, payload) {
+    commit("SET_PAGE", payload);
+  },
   async getFilmsDetail({}, payload) {
-    return this.$axios.get(`/movie/${payload.movie_id}`);
+    const filmsData = this.$axios.get(`/movie/${payload.movie_id}`);
+    return filmsData.data;
   },
   async getFilmsCredits({}, payload) {
     return this.$axios.get(`/movie/${payload.movie_id}/credits`);
@@ -26,36 +30,23 @@ export const actions = {
   async getFilmsNowPlaying() {
     return this.$axios.get(`/movie/now_playing`);
   },
-  async getFilmsPopular() {
-    const filmsData = await this.$axios.get(`/movie/popular`);
-    return filmsData.data.results;
+  async getFilmsPopular({}, payload) {
+    const filmsData = await this.$axios.get(
+      `/movie/popular?page=${payload.page}`
+    );
+    return filmsData.data;
   },
   async getFilmsTopRate() {
     const filmsData = await this.$axios.get(`/movie/top_rated`);
-    return filmsData.data.results;
+    return filmsData.data;
   },
   async getFilmsUpComing() {
     return this.$axios.get(`/movie/upcoming`);
   },
-  async getPosts({ commit }) {
-    console.log("action");
-    const dataPosts = await this.$axios.get("/posts");
-    if (dataPosts.data) {
-      let data = dataPosts.data;
-      commit("SET_POSTS", data);
-    }
-    return dataPosts;
-  },
-
-  async getUsers() {
-    const dataUsers = await this.$axios.get("/users");
-    return dataUsers.data;
-  },
 };
 
 export const mutations = {
-  SET_POSTS(state, data) {
-    console.log("mutation");
-    state.posts = data;
+  SET_PAGE(state, data) {
+    state.page = data;
   },
 };

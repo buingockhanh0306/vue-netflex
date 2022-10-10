@@ -1,41 +1,47 @@
 <template>
-  <div>
-    <DetailPage
-      :dataPopular="filmsPopular"
-      textSlide="Phim lien quan"
-      :dataTopRate="filmsTopRate"
-    />
-  </div>
+  <HomePage
+    textSlide1="TV Comming Up"
+    textSlide2="TV Popular"
+    textList="TV Top Rate"
+    :dataComingUp="filmsPopular"
+    :dataPopular="filmsPopular"
+    :dataList="filmsTopRate"
+    :totalPage="7"
+  />
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import ButtonDefault from "../../../components/common/Button/ButtonDefault.vue";
-import DetailPage from "../../../components/DetailPage/index.vue";
+import { mapState, mapActions } from "vuex";
+import HomePage from "../../components/HomePage/index.vue";
 export default {
-  components: { ButtonDefault, DetailPage },
-  computed: {
-    ...mapState("filmsStore", ["posts", "page"]),
-  },
+  name: "IndexPage",
+  components: { HomePage },
   data() {
     return {
+      tvPopular: [],
       filmsPopular: [],
       filmsTopRate: [],
     };
   },
-
-  async mounted() {
-    await this.getFilmsPopular();
-    await this.getFilmsTopRate();
-  },
-  methods: {
+  computed: {
     ...mapState("filmsStore", ["posts", "page"]),
     ...mapActions("filmsStore", "tvStore", [
       "getFilmsPopular",
       "getTVPopular",
       "getFilmsTopRate",
     ]),
-    async getFilmsPopular() {
+  },
+  async mounted() {
+    await this.getData();
+    await this.getFilmsTopRate();
+  },
+  watch: {
+    page() {
+      this.getData();
+    },
+  },
+  methods: {
+    async getData() {
       const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsPopular",
         {
@@ -51,13 +57,8 @@ export default {
       const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsTopRate"
       );
-      this.filmsTopRate = dataFilms.filter((item, index) => index < 10);
-    },
-    handleWatch() {
-      this.$router.push(`${this.$route.params.id}/watch`);
+      this.filmsTopRate = dataFilms;
     },
   },
 };
 </script>
-
-<style></style>

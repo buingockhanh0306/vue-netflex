@@ -29,6 +29,7 @@ export default {
     "~/plugins/axios.js",
     "~/plugins/swiper.js",
     "~/plugins/lazyLoad.js",
+    "~/plugins/starRate.js",
   ],
 
   axios: {

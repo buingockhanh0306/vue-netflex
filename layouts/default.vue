@@ -41,34 +41,81 @@
           </v-list>
         </v-menu>
       </v-app-bar>
-
-      <!-- Drawer -->
-      <v-navigation-drawer v-model="drawer" absolute temporary>
-        <v-list nav dense>
-          <v-list-item-group active-class="deep-purple--text text--accent-4">
-            <v-list-item v-for="(item, index) in navItem" :key="index">
+    </v-card>
+    <!-- Drawer -->
+    <v-navigation-drawer class="drawer" v-model="drawer" absolute temporary>
+      <v-list nav dense>
+        <v-list-item-group active-class="">
+          <div
+            class="d-flex mb-6 align-center justify-space-between header-drawer"
+          >
+            <v-img
+              class="mr-8 poiter"
+              max-height="60"
+              max-width="120"
+              src="/images/logo.png"
+            />
+            <v-icon @click="drawer = false">mdi-window-close</v-icon>
+          </div>
+          <v-list-item v-for="(item, index) in navItem" :key="index">
+            <nuxt-link
+              class="nav-link d-flex align-center white--text"
+              :to="item.navLink"
+            >
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
               <v-list-item-title>{{ item.name }}</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
+            </nuxt-link>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
 
-      <!-- End Drawer -->
-    </v-card>
-    <v-main>
-      <SlideBanner v-if="this.$route.path === '/'" :data="filmsTopRate" />
+    <!-- End Drawer -->
+    <v-main class="primary">
+      <SlideBanner
+        v-if="this.$route.path === '/' || this.$route.path === '/tv'"
+        :data="filmsTopRate"
+      />
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
+    <v-footer dark padless class="d-none d-md-block">
+      <v-card
+        width="100%"
+        flat
+        tile
+        class="primary lighten-1 white--text text-center"
+      >
+        <v-card-text>
+          <v-btn
+            v-for="icon in icons"
+            :key="icon"
+            class="mx-4 white--text"
+            icon
+          >
+            <v-icon size="24px">
+              {{ icon }}
+            </v-icon>
+          </v-btn>
+        </v-card-text>
+
+        <v-card-text class="white--text pt-0"> </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-text class="white--text">
+          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import SlideBanner from "../components/HomePage/SlideBanner/index.vue";
 export default {
   name: "DefaultLayout",
@@ -78,23 +125,22 @@ export default {
       drawer: false,
       navItem: [
         { name: "Home", icon: "mdi-home", navLink: "/" },
-        { name: "Account", icon: "mdi-account", navLink: "/account" },
+        { name: "TV Show", icon: "mdi-television-classic", navLink: "/tv" },
       ],
+      icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
     };
   },
-  computed: {
-    ...mapActions("filmsStore", ["getFilmsTopRate"]),
-  },
+  computed: {},
   components: { SlideBanner },
   async mounted() {
-    await this.getFilmsToRate();
+    await this.getFilmsTopRate();
   },
   methods: {
-    async getFilmsToRate() {
-      const dataFilmsTopRate = await this.$store.dispatch(
+    async getFilmsTopRate() {
+      const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsTopRate"
       );
-      this.filmsTopRate = dataFilmsTopRate.filter((item, index) => index < 6);
+      this.filmsTopRate = dataFilms;
     },
   },
 };
@@ -105,5 +151,11 @@ export default {
 }
 .nav-link {
   text-decoration: none;
+}
+.drawer {
+  z-index: 9999;
+}
+.header-drawer {
+  margin: 10px 10px;
 }
 </style>

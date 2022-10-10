@@ -8,25 +8,25 @@
     show-arrows-on-hover
   >
     <v-carousel-item
-      v-for="(item, i) in data"
+      v-for="item in data"
       :key="item.id"
-      :src="imageURL + item.backdrop_path"
+      src="/images/back_drop.png"
     >
       <div class="k-text-banner d-none d-md-block">
         <h2 class="k-title">{{ item.title }}</h2>
         <p>{{ item.overview }}</p>
         <div class="group-button">
           <ButtonIcon
-            @onClick="handleViewDeetail(item.id)"
+            @onClick="handleWatch(item.id)"
             color="green"
             text="Xem ngay"
-            icon="mdi-cloud-upload"
+            icon="mdi-arrow-right-bold-circle"
           />
           <ButtonIcon
-            @onClick="handleViewDeetail(item.id)"
+            @onClick="handleWatch(item.id)"
             color="red"
             text="Xem Trailer"
-            icon="mdi-cloud-upload"
+            icon="mdi-play-circle"
           />
         </div>
       </div>
@@ -47,8 +47,13 @@ export default {
     },
   },
   methods: {
-    handleViewDeetail(id) {
-      this.$router.push(`/films/${id}`);
+    handleWatch(id) {
+      console.log(this.$route);
+      if (this.$route.path === "/") {
+        this.$router.push(`/films/${id}/watch`);
+      } else {
+        this.$router.push(`tv/${id}/watch`);
+      }
     },
   },
   components: { ButtonDefault, ButtonIcon },

@@ -1,5 +1,5 @@
 <template>
-  <h2>watch page</h2>
+  <h2>watch page {{ this.$route.params.id }}</h2>
 </template>
 
 <script>
