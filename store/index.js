@@ -1,14 +1,15 @@
 export const state = () => ({
-  counter: 0,
+  loading: false,
 });
 
-export const getters = {
-  getCounter(state) {
-    return state.counter;
-  },
-};
 export const actions = {
   setLanguage({}, payload) {
     localStorage.setItem("lang", payload.lang);
+  },
+};
+
+export const mutations = {
+  SET_LOADING(state, data) {
+    state.loading = data;
   },
 };

@@ -1,6 +1,13 @@
+export const state = () => ({
+  page: 1,
+});
 export const actions = {
+  setPage({ commit }, payload) {
+    commit("SET_PAGE", payload);
+  },
   async getTVDetail({}, payload) {
-    return this.$axios.get(`/tv/${payload.tv_id}`);
+    const tvData = await this.$axios.get(`/tv/${payload.tv_id}`);
+    return tvData.data;
   },
   async getTVCredits({}, payload) {
     return this.$axios.get(`/tv/${payload.tv_id}/credits`);
@@ -23,14 +30,28 @@ export const actions = {
   async getTVNowPlaying() {
     return this.$axios.get(`/tv/now_playing`);
   },
-  async getTVPopular() {
-    const TVData = await this.$axios.get(`/tv/popular`);
-    return TVData.data.results;
+  async getTVPopular({}, payload) {
+    const tvData = await this.$axios.get(`/tv/popular?page=${payload.page}`);
+    return tvData.data;
   },
   async getTVTopRate() {
-    return this.$axios.get(`/tv/top_rated`);
+    const tvData = await this.$axios.get(`/tv/top_rated`);
+    return tvData.data;
   },
   async getTVUpComing() {
-    return this.$axios.get(`/tv/upcoming`);
+    const tvData = await this.$axios.get(`/tv/upcoming`);
+    return tvData.data;
+  },
+  async getTVRecommendations({}, payload) {
+    const tvData = await this.$axios.get(
+      `/tv/${payload.tv_id}/recommendations`
+    );
+    return tvData.data;
+  },
+};
+
+export const mutations = {
+  SET_PAGE(state, data) {
+    state.page = data;
   },
 };

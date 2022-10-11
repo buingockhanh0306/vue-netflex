@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar-right">
+    <h3>De xuat</h3>
     <div class="sidebar-right-item" v-for="item in data" :key="item.id">
       <v-img
         max-width="30px"

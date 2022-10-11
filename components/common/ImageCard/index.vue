@@ -1,6 +1,6 @@
 <template>
   <div class="card-image">
-    <v-img class="image-poster" :src="imageSrc" alt="">
+    <v-img class="image-poster" src="/images/back_drop.png" alt="">
       <div class="icon-play">
         <v-icon @click="onClick()" color="#fff" x-large>mdi-play</v-icon>
       </div>

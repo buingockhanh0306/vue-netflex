@@ -34,15 +34,21 @@ export const actions = {
     const filmsData = await this.$axios.get(
       `/movie/popular?page=${payload.page}`
     );
-    return filmsData.data.results;
+    return filmsData.data;
   },
   async getFilmsTopRate() {
     const filmsData = await this.$axios.get(`/movie/top_rated`);
-    return filmsData.data.results;
+    return filmsData.data;
   },
   async getFilmsUpComing() {
     const filmsData = await this.$axios.get(`/movie/upcoming`);
-    return filmsData.data.results;
+    return filmsData.data;
+  },
+  async getFilmsRecommendations({}, payload) {
+    const filmsData = await this.$axios.get(
+      `/movie/${payload.movie_id}/recommendations`
+    );
+    return filmsData.data;
   },
 };
 

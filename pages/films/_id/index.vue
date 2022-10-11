@@ -50,17 +50,17 @@ export default {
       const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsDetail",
         {
-          movie_id: this.$route.params.id,
+          movie_id: 297761,
         }
       );
-      this.filmDetail = dataFilms;
+      this.filmDetail = dataFilms[0];
     },
 
     async getFilmsTopRate() {
       const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsTopRate"
       );
-      this.filmsTopRate = dataFilms.filter((item, index) => index < 10);
+      this.filmsTopRate = dataFilms.filter((item, index) => index < 12);
     },
 
     handleWatch() {

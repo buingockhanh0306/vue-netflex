@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import HomePage from "../components/HomePage/index.vue";
 export default {
   name: "IndexPage",
@@ -34,9 +34,11 @@ export default {
     ]),
   },
   async mounted() {
+    this.$store.commit("SET_LOADING", true);
     await this.getFilmsPopular();
     await this.getFilmsTopRate();
     await this.getFilmsUpComing();
+    this.$store.commit("SET_LOADING", false);
   },
   watch: {
     page() {

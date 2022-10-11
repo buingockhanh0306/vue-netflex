@@ -73,6 +73,7 @@
     </v-navigation-drawer>
 
     <!-- End Drawer -->
+    <Loading v-if="true" />
     <v-main class="primary">
       <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
@@ -117,6 +118,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import SlideBanner from "../components/HomePage/SlideBanner/index.vue";
+import Loading from "../components/common/Loading/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
@@ -131,7 +133,7 @@ export default {
     };
   },
   computed: {},
-  components: { SlideBanner },
+  components: { SlideBanner, Loading },
   async mounted() {
     await this.getFilmsTopRate();
   },
