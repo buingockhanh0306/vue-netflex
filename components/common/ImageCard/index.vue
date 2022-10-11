@@ -1,11 +1,11 @@
 <template>
   <div class="card-image">
-    <v-img class="image-poster" src="/images/back_drop.png" alt="">
+    <v-img class="image-poster" :src="imageSrc" alt="">
       <div class="icon-play">
         <v-icon @click="onClick()" color="#fff" x-large>mdi-play</v-icon>
       </div>
     </v-img>
-    <div class="card-title" @click="onClick()">
+    <div class="card-title mt-2" @click="onClick()">
       {{ title }}
     </div>
   </div>

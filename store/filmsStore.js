@@ -10,7 +10,10 @@ export const actions = {
     return filmsData.data;
   },
   async getFilmsCredits({}, payload) {
-    return this.$axios.get(`/movie/${payload.movie_id}/credits`);
+    const filmsData = await this.$axios.get(
+      `/movie/${payload.movie_id}/credits`
+    );
+    return filmsData.data.cast;
   },
   async getFilmsImages({}, payload) {
     return this.$axios.get(`/movie/${payload.movie_id}/images`);
@@ -34,21 +37,29 @@ export const actions = {
     const filmsData = await this.$axios.get(
       `/movie/popular?page=${payload.page}`
     );
-    return filmsData.data;
+    return filmsData.data.results;
   },
   async getFilmsTopRate() {
     const filmsData = await this.$axios.get(`/movie/top_rated`);
-    return filmsData.data;
+    return filmsData.data.results;
   },
   async getFilmsUpComing() {
     const filmsData = await this.$axios.get(`/movie/upcoming`);
-    return filmsData.data;
+    return filmsData.data.results;
   },
   async getFilmsRecommendations({}, payload) {
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/recommendations`
     );
-    return filmsData.data;
+    return filmsData.data.results;
+  },
+
+  async getFilmsReviews({}, payload) {
+    const filmsData = await this.$axios.get(
+      `/movie/${payload.movie_id}/reviews`
+    );
+    console.log(filmsData.data);
+    return filmsData.data.results;
   },
 };
 

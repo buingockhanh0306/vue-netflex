@@ -1,13 +1,18 @@
 <template>
   <div class="sidebar-right">
-    <h3>De xuat</h3>
-    <div class="sidebar-right-item" v-for="item in data" :key="item.id">
+    <h3>Phim liên quan</h3>
+    <div
+      @click="handleWatch(item.id)"
+      class="sidebar-right-item mt-4"
+      v-for="item in data"
+      :key="item.id"
+    >
       <v-img
-        max-width="30px"
-        height="30px"
+        height="50px"
+        max-width="40px"
         :src="imageURL + item.poster_path"
       ></v-img>
-      <div class="mt-4">
+      <div>
         <h5>{{ item.title }}</h5>
         <Rating :value="item.vote_average" :size="12" />
       </div>
@@ -27,6 +32,11 @@ export default {
       return process.env.imageURL;
     },
   },
+  methods: {
+    handleWatch(id) {
+      this.$router.push(`/films/${id}`);
+    },
+  },
 };
 </script>
 
@@ -34,7 +44,8 @@ export default {
 .sidebar-right-item {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  cursor: pointer;
 }
 .character {
   display: flex;

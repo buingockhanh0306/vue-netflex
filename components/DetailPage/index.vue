@@ -5,14 +5,22 @@
         <v-col class="col-md-9">
           <v-row>
             <v-col class="col-md-4">
-              <!-- <v-img alt="" :src="imageURL + dataDetail.poster_path"></v-img> -->
-              <v-img alt="" src="/images/back_drop.png"></v-img>
+              <v-img alt="" :src="imageURL + dataDetail.poster_path"></v-img>
+              <!-- <v-img alt="" src="/images/back_drop.png"></v-img> -->
             </v-col>
             <v-col class="col-md-8 mb-6">
               <div>
                 <h1>{{ dataDetail.title }}</h1>
-                <div class="mb-4">
-                  Thế loại: <v-chip color="blue">{{ genres }}</v-chip>
+                <div class="my-4">
+                  Thể loại:
+                  <v-chip
+                    class="mx-1"
+                    small
+                    color="blue"
+                    v-for="item in genres"
+                    :key="item.id"
+                    >{{ item.name }}</v-chip
+                  >
                 </div>
                 <p>Ngày phát hành: {{ dataDetail.release_date }}</p>
                 <p>Thời lượng: {{ dataDetail.runtime }} phút</p>
@@ -43,11 +51,11 @@
               </div>
             </v-col>
           </v-row>
-          <Comments />
+          <Comments :data="dataReview" />
         </v-col>
 
         <v-col class="col-md-3 px-4 d-none d-md-block">
-          <SideBarRight :data="dataTopRate" />
+          <SideBarRight :data="dataRecommendations" />
         </v-col>
       </v-row>
 
@@ -61,14 +69,20 @@
         <HeadingSlide text="Diễn viên chính" />
         <div class="line"></div>
         <v-row>
-          <v-col class="col-md-2 px-2" v-for="(item, index) in 6" :key="index">
+          <v-col
+            class="col-md-2 px-2"
+            v-for="item in dataCredit"
+            :key="item.id"
+          >
             <div class="character">
               <v-img
                 class="image-character"
-                src="/images/back_drop.png"
+                :src="imageURL + item.profile_path"
               ></v-img>
-              <p>Something</p>
-              <p>Something</p>
+              <div class="name-character">
+                <span>{{ item.name }}</span>
+                <h4>{{ item.character }}</h4>
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -99,9 +113,25 @@ export default {
   },
   props: {
     textSlide: String,
-    dataPopular: Array,
+    dataRecommendations: Array,
+    dataReview: Array,
     dataTopRate: Array,
     dataDetail: Object,
+    dataCredit: Array,
+  },
+  data() {
+    return {
+      colors: [
+        "blue",
+        "green",
+        "red",
+        "orange",
+        "brown",
+        "purple",
+        "yellow",
+        "black",
+      ],
+    };
   },
   computed: {
     imageURL() {
@@ -114,7 +144,7 @@ export default {
     },
     genres() {
       if (this.dataDetail.genres) {
-        return this.dataDetail.genres.map((item) => item.name).join(" / ");
+        return this.dataDetail.genres;
       }
     },
   },
@@ -133,6 +163,13 @@ export default {
 .detail-button {
   display: flex;
   gap: 30px;
+}
+.name-character {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 @media only screen and (max-width: 768px) {
   .detail-button {

@@ -73,7 +73,7 @@
     </v-navigation-drawer>
 
     <!-- End Drawer -->
-    <Loading v-if="true" />
+    <Loading v-if="this.$store.state.loading" />
     <v-main class="primary">
       <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"

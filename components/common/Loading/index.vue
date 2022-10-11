@@ -1,16 +1,24 @@
 <template>
-  <div class="loading">
-    <v-progress-circular
-      :size="70"
-      :width="7"
-      color="purple"
-      indeterminate
-    ></v-progress-circular>
-  </div>
+  <v-dialog v-model="dialog" persistent max-width="290">
+    <div class="loading">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="purple"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+  </v-dialog>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      dialog: true,
+    };
+  },
+};
 </script>
 
 <style scoped>
