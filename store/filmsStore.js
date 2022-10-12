@@ -25,7 +25,10 @@ export const actions = {
     return this.$axios.get(`/movie/${payload.movie_id}/reviews`);
   },
   async getFilmsVideos({}, payload) {
-    return this.$axios.get(`/movie/${payload.movie_id}/videos`);
+    const filmsData = await this.$axios.get(
+      `/movie/${payload.movie_id}/videos`
+    );
+    return filmsData.data.results;
   },
   async getFilmsLatest() {
     return this.$axios.get("/movie/latest");
