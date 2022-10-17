@@ -115,7 +115,7 @@ export default {
           movie_id: this.$route.params.id,
         }
       );
-      this.filmsCredit = dataFilms.filter((item, index) => index < 6);
+      this.filmsCredit = dataFilms.slice(0, 6);
     },
 
     // async getFilmsReviews() {
@@ -142,7 +142,7 @@ export default {
       const dataFilms = await this.$store.dispatch(
         "filmsStore/getFilmsTopRate"
       );
-      this.filmsTopRate = dataFilms.filter((item, index) => index < 12);
+      this.filmsTopRate = dataFilms.slice(0, 10);
     },
 
     handleWatch() {

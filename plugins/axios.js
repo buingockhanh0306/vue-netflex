@@ -2,7 +2,7 @@ export default function ({ $axios, app, redirect }) {
   $axios.onRequest((config) => {
     config.params = {
       api_key: process.env.apiKey,
-      language: "vi",
+      language: "en-US",
       append_to_response: "videos",
     };
   });

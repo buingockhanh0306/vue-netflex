@@ -1,5 +1,6 @@
 export const state = () => ({
   page: 1,
+  totalPagePopular: 0,
 });
 export const actions = {
   setPage({ commit }, payload) {
@@ -34,7 +35,8 @@ export const actions = {
     return this.$axios.get("/movie/latest");
   },
   async getFilmsNowPlaying() {
-    return this.$axios.get(`/movie/now_playing`);
+    const filmsData = await this.$axios.get(`/movie/now_playing`);
+    return filmsData.data.results;
   },
   async getFilmsPopular({}, payload) {
     const filmsData = await this.$axios.get(
@@ -60,6 +62,14 @@ export const actions = {
   async getFilmsReviews({}, payload) {
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/reviews`
+    );
+    console.log(filmsData.data);
+    return filmsData.data.results;
+  },
+
+  async getFilmsSimilar({}, payload) {
+    const filmsData = await this.$axios.get(
+      `/movie/${payload.movie_id}/similar`
     );
     console.log(filmsData.data);
     return filmsData.data.results;

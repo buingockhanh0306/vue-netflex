@@ -1,5 +1,5 @@
 <template>
-  <!-- <HomePage
+  <HomePage
     textSlide1="Phim sắp chiếu"
     textSlide2="Phim Top"
     textList="Phim phổ biến"
@@ -7,17 +7,15 @@
     :dataTopRate="filmsTopRate"
     :dataPopular="filmsPopular"
     :totalPage="7"
-  /> -->
-  <Test />
+  />
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 import HomePage from "../components/HomePage/index.vue";
-import Test from "./test/index.vue";
 export default {
   name: "IndexPage",
-  components: { HomePage, Test },
+  components: { HomePage },
   data() {
     return {
       tvPopular: [],
@@ -34,6 +32,9 @@ export default {
       "getFilmsTopRate",
       "getFilmsUpComing",
     ]),
+    totalPagePopular() {
+      return this.$store.state.totalPagePopular;
+    },
   },
   async mounted() {
     this.$store.commit("SET_LOADING", true);
