@@ -1,6 +1,7 @@
 export const state = () => ({
   loading: false,
   lang: "vi",
+  displayLogin: false,
 });
 
 export const actions = {
@@ -15,5 +16,8 @@ export const mutations = {
   },
   SET_LANG(state, data) {
     state.lang = data;
+  },
+  SET_DISPLAY_LOGIN(state, data) {
+    state.displayLogin = data;
   },
 };

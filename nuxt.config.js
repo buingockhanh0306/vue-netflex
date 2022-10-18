@@ -30,6 +30,7 @@ export default {
     "~/plugins/swiper.js",
     "~/plugins/lazyLoad.js",
     "~/plugins/starRate.js",
+    "~/plugins/firebase.js",
   ],
 
   axios: {

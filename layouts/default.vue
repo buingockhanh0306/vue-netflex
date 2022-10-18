@@ -4,7 +4,7 @@
       <v-app-bar color="primary" dark>
         <v-app-bar-nav-icon class="d-md-none" @click="drawer = true" />
 
-        <!-- <nuxt-link to="/"
+        <!-- <nuxt-link v-if="!isActive" to="/"
           ><v-img
             class="mr-8 poiter"
             max-height="60"
@@ -24,22 +24,38 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
+        <input
+          type="text"
+          class="search"
+          :class="isActive ? 'search-active' : ''"
+          placeholder="Please enter value..."
+        />
+        <v-btn v-if="!isActive" icon>
+          <v-icon @click="isActive = !isActive">mdi-magnify</v-icon>
         </v-btn>
+        <v-btn v-else icon>
+          <v-icon @click="isActive = !isActive">mdi-close</v-icon>
+        </v-btn>
+
         <v-menu left bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-dots-vertical</v-icon>
+              <v-avatar size="28">
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                />
+              </v-avatar>
             </v-btn>
           </template>
-
-          <v-list>
-            <v-list-item v-for="n in 2" :key="n" @click="() => {}">
-              <v-list-item-title>Option {{ n }}</v-list-item-title>
+          <v-list class="menu-login">
+            <v-list-item @click="() => handleDisplayLogin()">
+              Login
             </v-list-item>
+            <v-list-item @click="() => {}"> Sign up </v-list-item>
           </v-list>
         </v-menu>
+        <Login />
       </v-app-bar>
     </v-card>
     <!-- Drawer -->
@@ -75,10 +91,10 @@
     <!-- End Drawer -->
     <Loading v-if="this.$store.state.loading" />
     <v-main class="primary">
-      <SlideBanner
+      <!-- <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
-      />
+      /> -->
       <v-container>
         <Nuxt />
       </v-container>
@@ -119,10 +135,12 @@
 import { mapActions, mapState } from "vuex";
 import SlideBanner from "../components/HomePage/SlideBanner/index.vue";
 import Loading from "../components/common/Loading/index.vue";
+import Login from "../components/common/Login/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
     return {
+      isActive: false,
       filmsTopRate: [],
       drawer: false,
       navItem: [
@@ -133,9 +151,9 @@ export default {
     };
   },
   computed: {},
-  components: { SlideBanner, Loading },
+  components: { SlideBanner, Loading, Login },
   async mounted() {
-    await this.getFilmsTopRate();
+    // await this.getFilmsTopRate();
   },
   methods: {
     async getFilmsTopRate() {
@@ -143,6 +161,9 @@ export default {
         "filmsStore/getFilmsTopRate"
       );
       this.filmsTopRate = dataFilms;
+    },
+    handleDisplayLogin() {
+      this.$store.commit("SET_DISPLAY_LOGIN", true);
     },
   },
 };
@@ -159,5 +180,25 @@ export default {
 }
 .header-drawer {
   margin: 10px 10px;
+}
+.search {
+  background-color: #333;
+  width: 0;
+  transition: all ease 0.4s;
+}
+.search-active {
+  border-radius: 10px;
+  height: 30px;
+  color: #fff;
+  outline: none;
+  padding: 4px 10px;
+  width: 400px;
+}
+.menu-login {
+  background-color: #333;
+  width: 140px;
+  margin-top: 50px;
+  margin-right: 10px;
+  border-radius: 4px;
 }
 </style>
