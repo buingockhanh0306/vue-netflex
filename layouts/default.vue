@@ -48,14 +48,27 @@
               </v-avatar>
             </v-btn>
           </template>
-          <v-list class="menu-login">
+          <v-list v-if="!this.$store.state.user" class="menu-login">
             <v-list-item @click="() => handleDisplayLogin()">
               Login
             </v-list-item>
-            <v-list-item @click="() => {}"> Sign up </v-list-item>
+            <v-list-item @click="() => handleDisplaySignUp()">
+              Sign up
+            </v-list-item>
+          </v-list>
+
+          <v-list v-else class="menu-login">
+            <v-list-item>
+              {{ this.$store.state.user.email }}
+            </v-list-item>
+            <v-list-item @click="() => handleDisplaySignOut()">
+              Sign out
+            </v-list-item>
           </v-list>
         </v-menu>
         <Login />
+        <SignUp />
+        <SnackBar />
       </v-app-bar>
     </v-card>
     <!-- Drawer -->
@@ -136,6 +149,8 @@ import { mapActions, mapState } from "vuex";
 import SlideBanner from "../components/HomePage/SlideBanner/index.vue";
 import Loading from "../components/common/Loading/index.vue";
 import Login from "../components/common/Login/index.vue";
+import SignUp from "../components/common/SignUp/index.vue";
+import SnackBar from "../components/common/SnackBar/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
@@ -151,7 +166,7 @@ export default {
     };
   },
   computed: {},
-  components: { SlideBanner, Loading, Login },
+  components: { SlideBanner, Loading, Login, SignUp, SnackBar },
   async mounted() {
     // await this.getFilmsTopRate();
   },
@@ -164,6 +179,20 @@ export default {
     },
     handleDisplayLogin() {
       this.$store.commit("SET_DISPLAY_LOGIN", true);
+    },
+    handleDisplaySignUp() {
+      this.$store.commit("SET_DISPLAY_SIGNUP", true);
+    },
+    async handleDisplaySignOut() {
+      await this.$fire.auth
+        .signOut()
+        .then(() => {
+          this.$store.commit("SET_USER", undefined);
+          localStorage.removeItem("user");
+        })
+        .catch((error) => {
+          // An error happened.
+        });
     },
   },
 };
@@ -196,7 +225,7 @@ export default {
 }
 .menu-login {
   background-color: #333;
-  width: 140px;
+  min-width: 140px;
   margin-top: 50px;
   margin-right: 10px;
   border-radius: 4px;

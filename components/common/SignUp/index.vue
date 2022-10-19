@@ -2,43 +2,35 @@
   <div class="text-center">
     <v-dialog
       class="dialog-login"
-      v-model="this.$store.state.displayLogin"
+      v-model="this.$store.state.displaySignUp"
       width="500"
       persistent
     >
       <v-card>
-        <v-card-title class="text-h5 orange lighten-2"> Login </v-card-title>
+        <v-card-title class="text-h5 orange lighten-2"> Sign Up </v-card-title>
 
-        <v-form class="form-login" ref="form" v-model="valid" lazy-validation>
-          <div class="social">
-            <v-btn color="#1773ea" fab large dark>
-              <v-icon>mdi-facebook</v-icon>
-            </v-btn>
-            <v-btn color="#c94439" fab large dark>
-              <v-icon>mdi-google</v-icon>
-            </v-btn>
-          </div>
-
+        <v-form class="form-login" ref="form" lazy-validation>
           <v-text-field
-            v-model.trim="email"
+            v-model="email"
             :rules="emailRules"
             label="E-mail"
             required
             color="#fff"
           ></v-text-field>
+
           <v-text-field
-            v-model.trim="password"
+            color="#fff"
+            v-model="password"
             :rules="passwordRules"
             label="Password"
-            color="#fff"
             required
             type="password"
           ></v-text-field>
           <p class="message-error">{{ errorMessage }}</p>
           <div class="no-account">
-            <span>You don't have an account?</span>
-            <span @click="returnSignUp()" class="green--text signup-text"
-              >Sign Up</span
+            <span>Already have an account?</span>
+            <span @click="returnLogin()" class="green--text signup-text"
+              >Login</span
             >
           </div>
         </v-form>
@@ -47,8 +39,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="handleCloseLogin()"> close </v-btn>
-          <v-btn color="green" text @click="handleLogin()"> Login </v-btn>
+          <v-btn color="red" text @click="handleCloseSignUp()"> close </v-btn>
+          <v-btn color="green" text @click="handleSignUp()"> Sign Up </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -64,6 +56,11 @@ export default {
     passwordRules: [],
     errorMessage: "",
   }),
+  computed: {
+    isValid() {
+      return this.$refs.form.validate();
+    },
+  },
   watch: {
     email() {
       this.errorMessage = "";
@@ -72,7 +69,6 @@ export default {
       this.errorMessage = "";
     },
   },
-
   methods: {
     validate() {
       this.$refs.form.validate();
@@ -83,14 +79,14 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    handleCloseLogin() {
+    handleCloseSignUp() {
       this.reset();
-      this.$store.commit("SET_DISPLAY_LOGIN", false);
+      this.$store.commit("SET_DISPLAY_SIGNUP", false);
     },
-    returnSignUp() {
+    returnLogin() {
       this.reset();
-      this.$store.commit("SET_DISPLAY_LOGIN", false);
-      this.$store.commit("SET_DISPLAY_SIGNUP", true);
+      this.$store.commit("SET_DISPLAY_SIGNUP", false);
+      this.$store.commit("SET_DISPLAY_LOGIN", true);
     },
     setRules() {
       this.emailRules = [
@@ -103,32 +99,24 @@ export default {
           (v && v.length >= 6) || "Password must be more than 6 characters",
       ];
     },
-    async handleLogin() {
+    async handleSignUp() {
       await this.setRules();
       if (this.$refs.form.validate()) {
         await this.$fire.auth
-          .signInWithEmailAndPassword(this.email, this.password)
-          .then((userCredential) => {
-            const data = {
-              email: userCredential.user.email,
-            };
-            this.$store.commit("SET_USER", data);
-            localStorage.setItem("user", JSON.stringify(data));
-            this.$store.commit("SET_DISPLAY_LOGIN", false);
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(() => {
             this.$store.commit("SET_SNACK_BAR", {
               display: true,
-              message: "Login successfully!",
+              message: "Sign up successfully!",
               status: "success",
             });
+            this.$store.commit("SET_DISPLAY_SIGN_UP", false);
+            this.$store.commit("SET_DISPLAY_LOGIN", true);
           })
           .catch((error) => {
-            console.log(error.code);
             switch (error.code) {
-              case "auth/wrong-password":
-                this.errorMessage = "Password is incorrect!";
-                break;
-              case "auth/user-not-found":
-                this.errorMessage = "Not found your account!";
+              case "auth/email-already-in-use":
+                this.errorMessage = "Your account is already!";
                 break;
               default: {
                 this.errorMessage = "Failed!!!";
@@ -143,26 +131,9 @@ export default {
 <style>
 .dialog-login {
 }
-.social {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  width: 100%;
-  margin: 20px 0;
-}
+
 .form-login {
+  margin: 20px 0;
   padding: 0 20px;
-}
-.no-account {
-  font-size: 12px;
-  margin: 10px 0;
-}
-.signup-text {
-  font-weight: 600;
-  cursor: pointer;
-}
-.message-error {
-  color: red;
-  font-size: 13px;
 }
 </style>
