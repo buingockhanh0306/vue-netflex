@@ -41,14 +41,11 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
               <v-avatar size="28">
-                <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
-                />
+                <img :src="imageURL" alt="John" />
               </v-avatar>
             </v-btn>
           </template>
-          <v-list v-if="!this.$store.state.user" class="menu-login">
+          <v-list v-if="!user" class="menu-login">
             <v-list-item @click="() => handleDisplayLogin()">
               Login
             </v-list-item>
@@ -59,7 +56,7 @@
 
           <v-list v-else class="menu-login">
             <v-list-item>
-              {{ this.$store.state.user.email }}
+              {{ user.email || user.displayName }}
             </v-list-item>
             <v-list-item @click="() => handleDisplaySignOut()">
               Sign out
@@ -102,12 +99,12 @@
     </v-navigation-drawer>
 
     <!-- End Drawer -->
-    <Loading v-if="this.$store.state.loading" />
+    <Loading v-if="loading" />
     <v-main class="primary">
-      <!-- <SlideBanner
+      <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
-      /> -->
+      />
       <v-container>
         <Nuxt />
       </v-container>
@@ -165,10 +162,15 @@ export default {
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
     };
   },
-  computed: {},
+  computed: {
+    ...mapState(["user", "loading"]),
+    imageURL() {
+      return this.user?.photoURL || "https://cdn.vuetifyjs.com/images/john.jpg";
+    },
+  },
   components: { SlideBanner, Loading, Login, SignUp, SnackBar },
   async mounted() {
-    // await this.getFilmsTopRate();
+    await this.getFilmsTopRate();
   },
   methods: {
     async getFilmsTopRate() {

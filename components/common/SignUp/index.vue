@@ -110,7 +110,7 @@ export default {
               message: "Sign up successfully!",
               status: "success",
             });
-            this.$store.commit("SET_DISPLAY_SIGN_UP", false);
+            this.$store.commit("SET_DISPLAY_SIGNUP", false);
             this.$store.commit("SET_DISPLAY_LOGIN", true);
           })
           .catch((error) => {

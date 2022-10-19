@@ -11,10 +11,22 @@
 
         <v-form class="form-login" ref="form" v-model="valid" lazy-validation>
           <div class="social">
-            <v-btn color="#1773ea" fab large dark>
+            <v-btn
+              @click="handleLoginWithFacebook()"
+              color="#1773ea"
+              fab
+              large
+              dark
+            >
               <v-icon>mdi-facebook</v-icon>
             </v-btn>
-            <v-btn color="#c94439" fab large dark>
+            <v-btn
+              @click="handleLoginWithGoogle()"
+              color="#c94439"
+              fab
+              large
+              dark
+            >
               <v-icon>mdi-google</v-icon>
             </v-btn>
           </div>
@@ -55,6 +67,12 @@
   </div>
 </template>
 <script>
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 export default {
   data: () => ({
     valid: true,
@@ -136,6 +154,50 @@ export default {
             }
           });
       }
+    },
+
+    async handleLoginWithGoogle() {
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider)
+        .then((result) => {
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          const user = result.user;
+          const data = {
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          };
+          this.$store.commit("SET_USER", data);
+          this.$store.commit("SET_DISPLAY_LOGIN", false);
+          localStorage.setItem("user", JSON.stringify(data));
+        })
+        .catch((error) => {
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          // const email = error.customData.email;
+          // const credential = GoogleAuthProvider.credentialFromError(error);
+        });
+    },
+
+    async handleLoginWithFacebook() {
+      const auth = getAuth();
+      const provider = new FacebookAuthProvider();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          const credential = FacebookAuthProvider.credentialFromResult(result);
+          const accessToken = credential.accessToken;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.customData.email;
+          const credential = FacebookAuthProvider.credentialFromError(error);
+
+          // ...
+        });
     },
   },
 };
