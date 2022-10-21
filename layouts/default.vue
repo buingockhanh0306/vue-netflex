@@ -47,19 +47,33 @@
           </template>
           <v-list v-if="!user" class="menu-login">
             <v-list-item @click="() => handleDisplayLogin()">
-              Login
+              <div class="icon-text">
+                <v-icon>mdi-login</v-icon>
+                Login
+              </div>
             </v-list-item>
             <v-list-item @click="() => handleDisplaySignUp()">
-              Sign up
+              <div class="icon-text">
+                <v-icon>mdi-account-plus-outline</v-icon>
+                Sign up
+              </div>
             </v-list-item>
           </v-list>
 
           <v-list v-else class="menu-login">
             <v-list-item>
-              {{ user.email || user.displayName }}
+              <div class="icon-text">
+                <v-avatar size="28">
+                  <img :src="imageURL" alt="John" />
+                </v-avatar>
+                {{ username }}
+              </div>
             </v-list-item>
             <v-list-item @click="() => handleDisplaySignOut()">
-              Sign out
+              <div class="icon-text">
+                <v-icon>mdi-account-arrow-left-outline</v-icon>
+                Sign out
+              </div>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -101,10 +115,10 @@
     <!-- End Drawer -->
     <Loading v-if="loading" />
     <v-main class="primary">
-      <SlideBanner
+      <!-- <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
-      />
+      /> -->
       <v-container>
         <Nuxt />
       </v-container>
@@ -167,11 +181,14 @@ export default {
     imageURL() {
       return this.user?.photoURL || "https://cdn.vuetifyjs.com/images/john.jpg";
     },
+    username() {
+      return this.user.email || this.user.displayName;
+    },
   },
   components: { SlideBanner, Loading, Login, SignUp, SnackBar },
-  async mounted() {
-    await this.getFilmsTopRate();
-  },
+  // async mounted() {
+  //   await this.getFilmsTopRate();
+  // },
   methods: {
     async getFilmsTopRate() {
       const dataFilms = await this.$store.dispatch(
@@ -227,9 +244,14 @@ export default {
 }
 .menu-login {
   background-color: #333;
-  min-width: 140px;
+  width: auto;
   margin-top: 50px;
   margin-right: 10px;
   border-radius: 4px;
+}
+.icon-text {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 </style>

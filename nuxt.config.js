@@ -31,12 +31,12 @@ export default {
       "@nuxtjs/firebase",
       {
         config: {
-          apiKey: "AIzaSyAlyfFAZK9uX9SXaUqYLhis6cUFGaldtx4",
-          authDomain: "netflex-228a6.firebaseapp.com",
-          projectId: "netflex-228a6",
-          storageBucket: "netflex-228a6.appspot.com",
-          messagingSenderId: "773303993428",
-          appId: "1:773303993428:web:4e90d0be2d696f806a19c1",
+          apiKey: process.env.API_KEY_FIREBASE,
+          authDomain: process.env.AUTH_DOMAIN,
+          projectId: process.env.PROJECT_ID,
+          storageBucket: process.env.STORAGE_BUCKET,
+          messagingSenderId: process.env.MESSAGING_SENDER_ID,
+          appId: process.env.APP_ID,
         },
         services: {
           auth: true, // Just as example. Can be any other service.
