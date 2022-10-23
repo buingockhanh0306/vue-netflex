@@ -1,5 +1,5 @@
 <template>
-  <!-- <HomePage
+  <HomePage
     textSlide1="Phim sắp chiếu"
     textSlide2="Phim Top"
     textList="Phim phổ biến"
@@ -7,8 +7,8 @@
     :dataTopRate="filmsTopRate"
     :dataPopular="filmsPopular"
     :totalPage="7"
-  /> -->
-  <div></div>
+  />
+  <!-- <div></div> -->
 </template>
 
 <script>
@@ -38,11 +38,11 @@ export default {
     },
   },
   async mounted() {
-    // this.$store.commit("SET_LOADING", true);
-    // await this.getFilmsPopular();
-    // await this.getFilmsTopRate();
-    // await this.getFilmsUpComing();
-    // this.$store.commit("SET_LOADING", false);
+    this.$store.commit("SET_LOADING", true);
+    await this.getFilmsPopular();
+    await this.getFilmsTopRate();
+    await this.getFilmsUpComing();
+    this.$store.commit("SET_LOADING", false);
   },
   watch: {
     page() {

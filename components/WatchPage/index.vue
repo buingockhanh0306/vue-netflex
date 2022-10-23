@@ -16,6 +16,8 @@
         <SideBarRight :data="dataSimilar" />
       </v-col>
     </v-row>
+    <h1 class="watchTitle">{{ title }}</h1>
+    <Rating :readonly="false" :value="0" :size="14" />
     <Popular text="Phim Top" :dataSlide="dataTopRate" />
     <Popular text="Now Playing" :dataSlide="dataNowPlaying" />
   </div>
@@ -24,10 +26,12 @@
 <script>
 import SideBarRight from "../../components/common/SideBarRight/index.vue";
 import Popular from "../HomePage/Popular/index.vue";
+import Rating from "../common/Rating/index.vue";
 
 export default {
-  components: { SideBarRight, Popular },
+  components: { SideBarRight, Popular, Rating },
   props: {
+    title: String,
     dataSimilar: Array,
     linkFilm: String,
     dataTopRate: Array,
@@ -36,4 +40,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.watchTitle {
+  color: var(primary);
+}
+</style>

@@ -79,6 +79,7 @@
         </v-menu>
         <Login />
         <SignUp />
+        <ForgotPassword />
         <SnackBar />
       </v-app-bar>
     </v-card>
@@ -115,10 +116,10 @@
     <!-- End Drawer -->
     <Loading v-if="loading" />
     <v-main class="primary">
-      <!-- <SlideBanner
+      <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
-      /> -->
+      />
       <v-container>
         <Nuxt />
       </v-container>
@@ -162,6 +163,7 @@ import Loading from "../components/common/Loading/index.vue";
 import Login from "../components/common/Login/index.vue";
 import SignUp from "../components/common/SignUp/index.vue";
 import SnackBar from "../components/common/SnackBar/index.vue";
+import ForgotPassword from "../components/common/ForgotPassword/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
@@ -185,10 +187,10 @@ export default {
       return this.user.email || this.user.displayName;
     },
   },
-  components: { SlideBanner, Loading, Login, SignUp, SnackBar },
-  // async mounted() {
-  //   await this.getFilmsTopRate();
-  // },
+  components: { SlideBanner, Loading, Login, SignUp, SnackBar, ForgotPassword },
+  async mounted() {
+    await this.getFilmsTopRate();
+  },
   methods: {
     async getFilmsTopRate() {
       const dataFilms = await this.$store.dispatch(

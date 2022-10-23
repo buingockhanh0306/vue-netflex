@@ -1,5 +1,6 @@
 <template>
   <WatchPage
+    :title="watchTitle"
     :dataSimilar="filmsSimilar"
     :linkFilm="linkFilm"
     :dataTopRate="filmsTopRate"
@@ -24,6 +25,9 @@ export default {
   computed: {
     linkFilm() {
       return "https://www.youtube.com/embed/" + this.filmsVideos[0]?.key;
+    },
+    watchTitle() {
+      return localStorage.getItem("watchTitle");
     },
   },
   async mounted() {

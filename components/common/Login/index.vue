@@ -55,9 +55,7 @@
                 >Sign Up</span
               >
             </div>
-            <span
-              @click="handleForgotPassword()"
-              class="green--text signup-text"
+            <span @click="openForgotPassword()" class="green--text signup-text"
               >Forgot password?</span
             >
           </div>
@@ -101,14 +99,8 @@ export default {
   },
 
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
     reset() {
       this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
     handleCloseLogin() {
       this.reset();
@@ -184,32 +176,23 @@ export default {
       signInWithPopup(auth, provider)
         .then((result) => {
           const user = result.user;
-          // const credential = FacebookAuthProvider.credentialFromResult(result);
-          // const accessToken = credential.accessToken;
-          console.log(user);
+          const data = {
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          };
+          this.$store.commit("SET_USER", data);
+          localStorage.setItem("user", JSON.stringify(data));
+          this.$store.commit("SET_DISPLAY_LOGIN", false);
         })
         .catch((error) => {
           console.log(error.code);
-          // const errorCode = error.code;
-          // const errorMessage = error.message;
-          // const email = error.customData.email;
-          // const credential = FacebookAuthProvider.credentialFromError(error);
+          console.log(error.message);
         });
     },
 
-    async handleForgotPassword() {
-      await this.$fire.auth
-        .sendPasswordResetEmail(this.email)
-        .then(() => {
-          this.$store.commit("SET_SNACK_BAR", {
-            display: true,
-            message: "Please check your email",
-            status: "success",
-          });
-        })
-        .catch((error) => {
-          console.log(error.code);
-        });
+    async openForgotPassword() {
+      this.$store.commit("SET_DISPLAY_LOGIN", false);
+      this.$store.commit("SET_DISPLAY_FORGOT_PASSWORD", true);
     },
   },
 };

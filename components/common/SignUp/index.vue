@@ -70,14 +70,8 @@ export default {
     },
   },
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
     reset() {
       this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
     handleCloseSignUp() {
       this.reset();
@@ -135,5 +129,8 @@ export default {
 .form-login {
   margin: 20px 0;
   padding: 0 20px;
+}
+.no-account {
+  font-size: 12px;
 }
 </style>

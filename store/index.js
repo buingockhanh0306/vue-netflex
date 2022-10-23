@@ -4,6 +4,7 @@ export const state = () => ({
   lang: "vi",
   displayLogin: false,
   displaySignUp: false,
+  displayForgotPassword: false,
   user: data,
   snackBar: {
     display: false,
@@ -30,6 +31,9 @@ export const mutations = {
   },
   SET_DISPLAY_SIGNUP(state, data) {
     state.displaySignUp = data;
+  },
+  SET_DISPLAY_FORGOT_PASSWORD(state, data) {
+    state.displayForgotPassword = data;
   },
   SET_USER(state, data) {
     state.user = data;
