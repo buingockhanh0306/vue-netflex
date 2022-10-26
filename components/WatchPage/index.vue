@@ -40,8 +40,4 @@ export default {
 };
 </script>
 
-<style>
-.watchTitle {
-  color: var(primary);
-}
-</style>
+<style></style>
