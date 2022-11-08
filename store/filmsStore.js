@@ -71,7 +71,13 @@ export const actions = {
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/similar`
     );
-    console.log(filmsData.data);
+    return filmsData.data.results;
+  },
+
+  async getFilmsSearch({}, payload) {
+    const filmsData = await this.$axios.get(
+      `/search/multi?page=${payload.page}?query=${payload.query}`
+    );
     return filmsData.data.results;
   },
 };

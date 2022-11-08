@@ -27,14 +27,17 @@
         <input
           type="text"
           class="search"
+          ref="inputSearch"
+          v-model="inputSearch"
+          v-on:keyup.enter="handleSearch()"
           :class="isActive ? 'search-active' : ''"
           placeholder="Please enter value..."
         />
         <v-btn v-if="!isActive" icon>
-          <v-icon @click="isActive = !isActive">mdi-magnify</v-icon>
+          <v-icon @click="handleDisplaySearch()">mdi-magnify</v-icon>
         </v-btn>
         <v-btn v-else icon>
-          <v-icon @click="isActive = !isActive">mdi-close</v-icon>
+          <v-icon @click="handleDisplaySearch()">mdi-close</v-icon>
         </v-btn>
 
         <v-menu left bottom>
@@ -116,10 +119,10 @@
     <!-- End Drawer -->
     <Loading v-if="loading" />
     <v-main class="primary">
-      <SlideBanner
+      <!-- <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
-      />
+      /> -->
       <v-container>
         <Nuxt />
       </v-container>
@@ -168,6 +171,7 @@ export default {
   name: "DefaultLayout",
   data() {
     return {
+      inputSearch: "",
       isActive: false,
       filmsTopRate: [],
       drawer: false,
@@ -189,7 +193,7 @@ export default {
   },
   components: { SlideBanner, Loading, Login, SignUp, SnackBar, ForgotPassword },
   async mounted() {
-    await this.getFilmsTopRate();
+    // await this.getFilmsTopRate();
   },
   methods: {
     async getFilmsTopRate() {
@@ -203,6 +207,16 @@ export default {
     },
     handleDisplaySignUp() {
       this.$store.commit("SET_DISPLAY_SIGNUP", true);
+    },
+    handleDisplaySearch() {
+      this.isActive = !this.isActive;
+      this.$refs.inputSearch.focus();
+    },
+
+    async handleSearch() {
+      localStorage.setItem("search", this.inputSearch);
+      this.isActive = !this.isActive;
+      this.$router.push(`/search?query=${this.inputSearch}`);
     },
     async handleDisplaySignOut() {
       await this.$fire.auth

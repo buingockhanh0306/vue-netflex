@@ -1,5 +1,6 @@
 <template>
-  <ErrorPage />
+  <!-- <ErrorPage /> -->
+  <div></div>
 </template>
 
 <script>
