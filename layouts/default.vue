@@ -210,6 +210,7 @@ export default {
     },
     handleDisplaySearch() {
       this.isActive = !this.isActive;
+      this.inputSearch = "";
       this.$refs.inputSearch.focus();
     },
 

@@ -1,5 +1,11 @@
 <template>
-  <div>Ket qua tim kiem cho: {{ this.$route.query.q }}</div>
+  <div>
+    <div class="heading-search">
+      Kết quả tìm kiếm cho:
+      <span class="search-value">{{ this.$route.query.q }}</span>
+    </div>
+    <v-divider></v-divider>
+  </div>
 </template>
 
 <script>
@@ -18,4 +24,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.heading-search {
+  font-size: 2.4rem;
+  color: var(--text-color);
+  margin: 50px 0;
+}
+.search-value {
+  color: var(--secondary-color);
+}
+</style>
