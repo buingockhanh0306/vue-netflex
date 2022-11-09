@@ -9,14 +9,14 @@ export default function ({ $axios, app, redirect }) {
 
   $axios.onError((error) => {
     if (error.response.status === 401) {
-      app.$auth.logout();
+      app?.$auth?.logout();
     } else if (error.response.status === 403) {
       if (error.response.headers["error-message"] === "duplicate_login") {
-        app.$auth.logout();
+        app?.$auth?.logout();
         localStorage.setItem("duplicateLogin", "true");
       }
       if (error.response.headers["error-message"] === "trans.server_error") {
-        app.$auth.logout();
+        app?.$auth?.logout();
         localStorage.setItem("severError", "true");
       }
     } else if (error.response.status === 500) {

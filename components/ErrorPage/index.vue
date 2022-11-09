@@ -55,8 +55,8 @@
       </g>
     </svg>
     <div class="message-box">
-      <h1>{{ numberError }}</h1>
-      <p>{{ statusError }}</p>
+      <h1>{{ statusCode }}</h1>
+      <p>{{ errorMessage }}</p>
       <div class="buttons-con">
         <div class="action-link-wrap">
           <a onclick="history.back(-1)" class="link-button link-back-button"
@@ -72,8 +72,8 @@
 <script>
 export default {
   props: {
-    numberError: String,
-    statusError: String,
+    statusCode: String || Number,
+    errorMessage: String,
   },
 };
 </script>
