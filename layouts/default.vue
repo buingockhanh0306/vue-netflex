@@ -214,9 +214,8 @@ export default {
     },
 
     async handleSearch() {
-      localStorage.setItem("search", this.inputSearch);
       this.isActive = !this.isActive;
-      this.$router.push(`/search?query=${this.inputSearch}`);
+      this.$router.push(`/search?q=${this.inputSearch}`);
     },
     async handleDisplaySignOut() {
       await this.$fire.auth

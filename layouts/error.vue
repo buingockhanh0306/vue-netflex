@@ -1,10 +1,19 @@
 <template>
-  <ErrorPage />
+  <div>
+    <div v-if="error.statusCode === 404">
+      <ErrorPage numberError="404" statusError="Page Not Found" />
+    </div>
+    <div v-else>
+      <ErrorPage numberError="Hmm!" statusError="An error occurred" />
+    </div>
+  </div>
 </template>
 
 <script>
+import ErrorPage from "../components/ErrorPage/index.vue";
 export default {
   name: "EmptyLayout",
+  components: { ErrorPage },
   layout: "empty",
   props: {
     error: {
@@ -12,16 +21,5 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {
-      otherError: "An error occurred",
-    };
-  },
 };
 </script>
-
-<style scoped>
-h1 {
-  font-size: 20px;
-}
-</style>
