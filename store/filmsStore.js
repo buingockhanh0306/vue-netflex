@@ -75,8 +75,9 @@ export const actions = {
   },
 
   async getFilmsSearch({}, payload) {
+    console.log(payload.query);
     const filmsData = await this.$axios.get(
-      `/search/multi?page=${payload.page}?query=${payload.query}`
+      `/search/multi?page=${payload.page}&query=${payload.query}`
     );
     return filmsData.data.results;
   },

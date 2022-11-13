@@ -119,10 +119,10 @@
     <!-- End Drawer -->
     <Loading v-if="loading" />
     <v-main class="primary">
-      <!-- <SlideBanner
+      <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
-      /> -->
+      />
       <v-container>
         <Nuxt />
       </v-container>
@@ -193,7 +193,7 @@ export default {
   },
   components: { SlideBanner, Loading, Login, SignUp, SnackBar, ForgotPassword },
   async mounted() {
-    // await this.getFilmsTopRate();
+    await this.getFilmsTopRate();
   },
   methods: {
     async getFilmsTopRate() {
