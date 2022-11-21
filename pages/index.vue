@@ -1,8 +1,8 @@
 <template>
   <HomePage
-    textSlide1="Phim sắp chiếu"
-    textSlide2="Phim Top"
-    textList="Phim phổ biến"
+    :textSlide1="$t('home.filmsUpComing')"
+    :textSlide2="$t('home.filmsTop')"
+    :textList="$t('home.filmsPopular')"
     :dataUpComing="filmsUpComing"
     :dataTopRate="filmsTopRate"
     :dataPopular="filmsPopular"
@@ -38,11 +38,11 @@ export default {
     },
   },
   async mounted() {
-    this.$store.commit("SET_LOADING", true);
-    await this.getFilmsPopular();
-    await this.getFilmsTopRate();
-    await this.getFilmsUpComing();
-    this.$store.commit("SET_LOADING", false);
+    // this.$store.commit("SET_LOADING", true);
+    // await this.getFilmsPopular();
+    // await this.getFilmsTopRate();
+    // await this.getFilmsUpComing();
+    // this.$store.commit("SET_LOADING", false);
   },
   watch: {
     page() {

@@ -8,7 +8,7 @@
     >
       <v-card>
         <v-card-title class="text-h5 orange lighten-2">
-          Forgot Password
+          {{ $t("modal.forgot.forgot") }}
         </v-card-title>
 
         <v-form class="form-login" ref="form" v-model="valid" lazy-validation>
@@ -29,10 +29,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red" text @click="handleCloseForotPassword()">
-            close
+            {{ $t("modal.forgot.close") }}
           </v-btn>
           <v-btn color="green" text @click="handleForgotPassword()">
-            Send
+            {{ $t("modal.forgot.send") }}
           </v-btn>
         </v-card-actions>
       </v-card>

@@ -31,7 +31,7 @@
           v-model="inputSearch"
           v-on:keyup.enter="handleSearch()"
           :class="isActive ? 'search-active' : ''"
-          placeholder="Please enter value..."
+          :placeholder="$t('home.pleaseEnterValue')"
         />
         <v-btn v-if="!isActive" icon>
           <v-icon @click="handleDisplaySearch()">mdi-magnify</v-icon>
@@ -39,7 +39,7 @@
         <v-btn v-else icon>
           <v-icon @click="handleDisplaySearch()">mdi-close</v-icon>
         </v-btn>
-
+        <ChangeLanguages />
         <v-menu left bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
@@ -52,13 +52,13 @@
             <v-list-item @click="() => handleDisplayLogin()">
               <div class="icon-text">
                 <v-icon>mdi-login</v-icon>
-                Login
+                {{ $t("home.login") }}
               </div>
             </v-list-item>
             <v-list-item @click="() => handleDisplaySignUp()">
               <div class="icon-text">
                 <v-icon>mdi-account-plus-outline</v-icon>
-                Sign up
+                {{ $t("home.signup") }}
               </div>
             </v-list-item>
           </v-list>
@@ -75,7 +75,7 @@
             <v-list-item @click="() => handleDisplaySignOut()">
               <div class="icon-text">
                 <v-icon>mdi-account-arrow-left-outline</v-icon>
-                Sign out
+                {{ $t("home.signout") }}
               </div>
             </v-list-item>
           </v-list>
@@ -167,6 +167,7 @@ import Login from "../components/common/Login/index.vue";
 import SignUp from "../components/common/SignUp/index.vue";
 import SnackBar from "../components/common/SnackBar/index.vue";
 import ForgotPassword from "../components/common/ForgotPassword/index.vue";
+import ChangeLanguages from "../components/common/ChangeLanguages/index.vue";
 export default {
   name: "DefaultLayout",
   data() {
@@ -176,7 +177,7 @@ export default {
       filmsTopRate: [],
       drawer: false,
       navItem: [
-        { name: "Home", icon: "mdi-home", navLink: "/" },
+        { name: this.$t("home.home"), icon: "mdi-home", navLink: "/" },
         { name: "TV Show", icon: "mdi-television-classic", navLink: "/tv" },
       ],
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
@@ -191,9 +192,17 @@ export default {
       return this.user.email || this.user.displayName;
     },
   },
-  components: { SlideBanner, Loading, Login, SignUp, SnackBar, ForgotPassword },
+  components: {
+    SlideBanner,
+    Loading,
+    Login,
+    SignUp,
+    SnackBar,
+    ForgotPassword,
+    ChangeLanguages,
+  },
   async mounted() {
-    await this.getFilmsTopRate();
+    // await this.getFilmsTopRate();
   },
   methods: {
     async getFilmsTopRate() {

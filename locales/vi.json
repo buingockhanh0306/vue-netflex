@@ -1,0 +1,54 @@
+{
+  "home": {
+    "home": "Trang chủ",
+    "pleaseEnterValue": "Nhập từ khóa để tìm kiếm...",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "signout": "Đăng xuất",
+    "filmsUpComing": "Phim sắp chiếu",
+    "filmsTop": "Phim top",
+    "filmsPopular": "Phim phổ biến"
+  },
+  "snackbar": {
+    "close": "Đóng",
+    "loginSuccessfully": "Đăng nhập thành công!",
+    "signupSuccessfully": "Đăng ký thành công!"
+  },
+  "modal": {
+    "login": {
+      "login": "Đăng nhập",
+      "password": "Mật khẩu",
+      "noAccount": "Bạn chưa có tài khoản?",
+      "signup": "Đăng ký",
+      "forgot": "Quên mật khẩu?",
+      "close": "Đóng",
+      "message": {
+        "emailRequired": "Vui lòng nhập Email.",
+        "emailValid": "Vui lòng nhập đúng Email.",
+        "passwordRequired": "Vui lòng nhập mật khẩu.",
+        "passwordLength": "Mật khẩu có ít nhất 6 ký tự.",
+        "incorrect": "Sai Email hoặc mật khẩu đăng nhập."
+      }
+    },
+    "signup": {
+      "signup": "Đăng ký",
+      "password": "Mật khẩu",
+      "haveAccount": "Bạn đã có tài khoản?",
+      "login": "Đăng nhập",
+      "close": "Đóng",
+      "message": {
+        "emailRequired": "Vui lòng nhập Email.",
+        "emailValid": "Vui lòng nhập đúng Email.",
+        "passwordRequired": "Vui lòng nhập mật khẩu.",
+        "passwordLength": "Mật khẩu có ít nhất 6 ký tự.",
+        "alreadyAccount": "Tài khoản đã tồn tại.",
+        "failed": "Đã có lỗi xảy ra!"
+      }
+    },
+    "forgot": {
+      "forgot": "Quên mật khẩu",
+      "close": "Đóng",
+      "send": "Gửi"
+    }
+  }
+}

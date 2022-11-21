@@ -7,7 +7,9 @@
       persistent
     >
       <v-card>
-        <v-card-title class="text-h5 orange lighten-2"> Login </v-card-title>
+        <v-card-title class="text-h5 orange lighten-2">
+          {{ $t("modal.login.login") }}
+        </v-card-title>
 
         <v-form class="form-login" ref="form" v-model="valid" lazy-validation>
           <div class="social">
@@ -41,7 +43,7 @@
             v-model.trim="password"
             :rules="passwordRules"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            label="Password"
+            :label="$t('modal.login.password')"
             color="#fff"
             required
             :type="show ? 'text' : 'password'"
@@ -50,13 +52,15 @@
           <p class="message-error">{{ errorMessage }}</p>
           <div class="no-account_forgot">
             <div class="no-account">
-              <span>You don't have an account?</span>
-              <span @click="returnSignUp()" class="green--text signup-text"
-                >Sign Up</span
-              >
+              <span>{{ $t("modal.login.noAccount") }}</span>
+              <span @click="returnSignUp()" class="green--text signup-text">{{
+                $t("modal.login.signup")
+              }}</span>
             </div>
-            <span @click="openForgotPassword()" class="green--text signup-text"
-              >Forgot password?</span
+            <span
+              @click="openForgotPassword()"
+              class="green--text signup-text"
+              >{{ $t("modal.login.forgot") }}</span
             >
           </div>
         </v-form>
@@ -65,8 +69,12 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="handleCloseLogin()"> close </v-btn>
-          <v-btn color="green" text @click="handleLogin()"> Login </v-btn>
+          <v-btn color="red" text @click="handleCloseLogin()">
+            {{ $t("modal.login.close") }}
+          </v-btn>
+          <v-btn color="green" text @click="handleLogin()">
+            {{ $t("modal.login.login") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -113,13 +121,13 @@ export default {
     },
     setRules() {
       this.emailRules = [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        (v) => !!v || this.$t("modal.login.message.emailRequired"),
+        (v) => /.+@.+\..+/.test(v) || this.$t("modal.login.message.emailValid"),
       ];
       this.passwordRules = [
-        (v) => !!v || "Password is required",
+        (v) => !!v || this.$t("modal.login.message.passwordRequired"),
         (v) =>
-          (v && v.length >= 6) || "Password must be more than 6 characters",
+          (v && v.length >= 6) || this.$t("modal.login.message.passwordLength"),
       ];
     },
     async handleLogin() {
@@ -136,12 +144,12 @@ export default {
             this.$store.commit("SET_DISPLAY_LOGIN", false);
             this.$store.commit("SET_SNACK_BAR", {
               display: true,
-              message: "Login successfully!",
+              message: this.$t("snackbar.loginSuccessfully"),
               status: "success",
             });
           })
           .catch((error) => {
-            this.errorMessage = "Email or password is incorrect.";
+            this.errorMessage = this.$t("modal.login.message.incorrect");
           });
       }
     },

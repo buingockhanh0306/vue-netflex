@@ -1,0 +1,54 @@
+{
+  "home": {
+    "home": "Home",
+    "pleaseEnterValue": "Please enter value...",
+    "login": "Login",
+    "signup": "Sign up",
+    "signout": "Sign out",
+    "filmsUpComing": "Films Up Coming",
+    "filmsTop": "Films Top",
+    "filmsPopular": "Films Popular"
+  },
+  "snackbar": {
+    "close": "Close",
+    "loginSuccessfully": "Login successfully!",
+    "signupSuccessfully": "Sign up successfully!"
+  },
+  "modal": {
+    "login": {
+      "login": "Login",
+      "password": "Password",
+      "noAccount": "You don't have an account?",
+      "signup": "Sign Up",
+      "forgot": "Forgot Password?",
+      "close": "Close",
+      "message": {
+        "emailRequired": "E-mail is required.",
+        "emailValid": "E-mail must be valid",
+        "passwordRequired": "Password is required.",
+        "passwordLength": "Password must be more than 6 characters.",
+        "incorrect": "Email or password is incorrect."
+      }
+    },
+    "signup": {
+      "signup": "Sign Up",
+      "password": "Password",
+      "haveAccount": "Already have an account?",
+      "login": "Login",
+      "close": "Close",
+      "message": {
+        "emailRequired": "E-mail is required.",
+        "emailValid": "E-mail must be valid",
+        "passwordRequired": "Password is required.",
+        "passwordLength": "Password must be more than 6 characters.",
+        "alreadyAccount": "Your account is already!",
+        "failed": "Failed!!!"
+      }
+    },
+    "forgot": {
+      "forgot": "Forgot Password",
+      "close": "Close",
+      "send": "Send"
+    }
+  }
+}

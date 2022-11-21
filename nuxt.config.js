@@ -25,6 +25,7 @@ export default {
   buildModules: ["@nuxtjs/vuetify"],
 
   modules: [
+    "@nuxtjs/i18n",
     "@nuxtjs/axios",
     "@nuxtjs/proxy",
     [
@@ -44,6 +45,19 @@ export default {
       },
     ],
   ],
+
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        file: "en.json",
+      },
+      { code: "vi", file: "vi.json" },
+    ],
+    langDir: "locales/",
+    defaultLocale: "vi",
+  },
+
   plugins: [
     "~/plugins/axios.js",
     "~/plugins/swiper.js",

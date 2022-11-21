@@ -7,7 +7,9 @@
       persistent
     >
       <v-card>
-        <v-card-title class="text-h5 orange lighten-2"> Sign Up </v-card-title>
+        <v-card-title class="text-h5 orange lighten-2">
+          {{ $t("modal.signup.signup") }}
+        </v-card-title>
 
         <v-form class="form-login" ref="form" lazy-validation>
           <v-text-field
@@ -22,16 +24,16 @@
             color="#fff"
             v-model="password"
             :rules="passwordRules"
-            label="Password"
+            :label="$t('modal.signup.password')"
             required
             type="password"
           ></v-text-field>
           <p class="message-error">{{ errorMessage }}</p>
           <div class="no-account">
-            <span>Already have an account?</span>
-            <span @click="returnLogin()" class="green--text signup-text"
-              >Login</span
-            >
+            <span> {{ $t("modal.signup.haveAccount") }}</span>
+            <span @click="returnLogin()" class="green--text signup-text">{{
+              $t("modal.signup.login")
+            }}</span>
           </div>
         </v-form>
 
@@ -39,8 +41,12 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="handleCloseSignUp()"> close </v-btn>
-          <v-btn color="green" text @click="handleSignUp()"> Sign Up </v-btn>
+          <v-btn color="red" text @click="handleCloseSignUp()">
+            {{ $t("modal.signup.close") }}
+          </v-btn>
+          <v-btn color="green" text @click="handleSignUp()">
+            {{ $t("modal.signup.signup") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -84,13 +90,15 @@ export default {
     },
     setRules() {
       this.emailRules = [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        (v) => !!v || this.$t("modal.signup.message.emailRequired"),
+        (v) =>
+          /.+@.+\..+/.test(v) || this.$t("modal.signup.message.emailValid"),
       ];
       this.passwordRules = [
-        (v) => !!v || "Password is required",
+        (v) => !!v || this.$t("modal.signup.message.passwordRequired"),
         (v) =>
-          (v && v.length >= 6) || "Password must be more than 6 characters",
+          (v && v.length >= 6) ||
+          this.$t("modal.signup.message.passwordLength"),
       ];
     },
     async handleSignUp() {
@@ -101,7 +109,7 @@ export default {
           .then(() => {
             this.$store.commit("SET_SNACK_BAR", {
               display: true,
-              message: "Sign up successfully!",
+              message: this.$t("snackbar.signupSuccessfully"),
               status: "success",
             });
             this.$store.commit("SET_DISPLAY_SIGNUP", false);
@@ -110,10 +118,10 @@ export default {
           .catch((error) => {
             switch (error.code) {
               case "auth/email-already-in-use":
-                this.errorMessage = "Your account is already!";
+                this.errorMessage = this.$t("signup.message.alreadyAccount");
                 break;
               default: {
-                this.errorMessage = "Failed!!!";
+                this.errorMessage = this.$t("signup.message.failed");
               }
             }
           });
