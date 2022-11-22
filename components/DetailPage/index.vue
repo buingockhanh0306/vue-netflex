@@ -12,7 +12,7 @@
               <div>
                 <h1>{{ dataDetail.title }}</h1>
                 <div class="my-4">
-                  Thể loại:
+                  {{ $t("detail.genres") }}
                   <v-chip
                     class="mx-1"
                     small
@@ -22,8 +22,13 @@
                     >{{ item.name }}</v-chip
                   >
                 </div>
-                <p>Ngày phát hành: {{ dataDetail.release_date }}</p>
-                <p>Thời lượng: {{ dataDetail.runtime }} phút</p>
+                <p>
+                  {{ $t("detail.releaseDate") }} {{ dataDetail.release_date }}
+                </p>
+                <p>
+                  {{ $t("detail.runtime") }} {{ dataDetail.runtime }}
+                  {{ $t("detail.minutes") }}
+                </p>
                 <p>
                   {{ dataDetail.overview }}
                 </p>
@@ -32,19 +37,19 @@
                   ({{ voteAverage }}<v-icon color="warning">mdi-star</v-icon>/{{
                     dataDetail.vote_count
                   }}
-                  lượt bình chọn)
+                  {{ $t("detail.votes") }})
                 </p>
                 <div class="detail-button">
                   <ButtonIcon
                     @onClick="handleWatch(dataDetail.id)"
                     color="green"
-                    text="Xem ngay"
+                    :text="$t('detail.watchNow')"
                     icon="mdi-arrow-right-bold-circle"
                   />
                   <ButtonIcon
                     @onClick="handleWatch(dataDetail.id)"
                     color="red"
-                    text="Xem Trailer"
+                    :text="$t('detail.watchTrailer')"
                     icon="mdi-play-circle"
                   />
                 </div>
@@ -66,7 +71,7 @@
       </section> -->
 
       <section class="d-none d-md-block">
-        <HeadingSlide text="Diễn viên chính" />
+        <HeadingSlide :text="$t('detail.mainActor')" />
         <div class="line"></div>
         <v-row>
           <v-col

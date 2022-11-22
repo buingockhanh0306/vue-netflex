@@ -176,10 +176,6 @@ export default {
       isActive: false,
       filmsTopRate: [],
       drawer: false,
-      navItem: [
-        { name: this.$t("home.home"), icon: "mdi-home", navLink: "/" },
-        { name: "TV Show", icon: "mdi-television-classic", navLink: "/tv" },
-      ],
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
     };
   },
@@ -190,6 +186,12 @@ export default {
     },
     username() {
       return this.user.email || this.user.displayName;
+    },
+    navItem() {
+      return [
+        { name: this.$t("home.home"), icon: "mdi-home", navLink: "/" },
+        { name: "TV Show", icon: "mdi-television-classic", navLink: "/tv" },
+      ];
     },
   },
   components: {

@@ -56,6 +56,7 @@ export default {
     ],
     langDir: "locales/",
     defaultLocale: "vi",
+    strategy: "no_prefix",
   },
 
   plugins: [

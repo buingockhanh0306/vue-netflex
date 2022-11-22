@@ -59,10 +59,10 @@
       <p>{{ errorMessage }}</p>
       <div class="buttons-con">
         <div class="action-link-wrap">
-          <a onclick="history.back(-1)" class="link-button link-back-button"
-            >Go Back</a
-          >
-          <a href="/" class="link-button">Go to Home Page</a>
+          <a onclick="history.back(-1)" class="link-button link-back-button">{{
+            $t("error.goBack")
+          }}</a>
+          <a href="/" class="link-button">{{ $t("error.goToHomePage") }}</a>
         </div>
       </div>
     </div>

@@ -31,14 +31,14 @@
 export default {
   data() {
     return {
-      language: "vi",
+      language: localStorage.getItem("lang"),
     };
   },
   methods: {
-    handleChangeLanguage(lang) {
-      this.$i18n.setLocale(lang);
-      this.language = lang;
-      console.log(lang);
+    handleChangeLanguage(locale) {
+      this.$i18n.setLocale(locale);
+      localStorage.setItem("lang", locale);
+      this.language = locale;
     },
   },
 };

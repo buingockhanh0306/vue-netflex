@@ -1,5 +1,5 @@
 <template>
-  <HomePage
+  <!-- <HomePage
     :textSlide1="$t('home.filmsUpComing')"
     :textSlide2="$t('home.filmsTop')"
     :textList="$t('home.filmsPopular')"
@@ -7,8 +7,8 @@
     :dataTopRate="filmsTopRate"
     :dataPopular="filmsPopular"
     :totalPage="7"
-  />
-  <!-- <div></div> -->
+  /> -->
+  <div></div>
 </template>
 
 <script>

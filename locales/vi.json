@@ -50,5 +50,42 @@
       "close": "Đóng",
       "send": "Gửi"
     }
+  },
+  "detail": {
+    "genres": "Thể loại:",
+    "releaseDate": "Ngày phát hành:",
+    "runtime": "Thời lượng:",
+    "minutes": "phút",
+    "votes": "lượt bình chọn",
+    "watchNow": "Xem ngay",
+    "watchTrailer": "Xem trailer",
+    "mainActor": "Diễn viên chính",
+    "filmsTop": "Phim Top"
+  },
+  "error": {
+    "badRequest": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "pageNotFound": "Page Not Found",
+    "methodNotAllowed": "Method Not Allowed",
+    "notAcceptable": "Not Acceptable",
+    "proxyAuthenticationRequired": "Proxy Authentication Required",
+    "conflictingRequest": "Conflicting Request",
+    "gone": "Gone",
+    "contentLengthRequired": "Content Length Required",
+    "preconditionFailed": "Precondition Failed",
+    "requestEntityTooLong": "Request Entity Too Long",
+    "requestUriTooLong": "Request URI Too Long",
+    "unsupportedMediaType": "Unsupported Media Type",
+    "tooManyConnections": "Too Many Connections",
+    "internalServerError": "Internal Server Error",
+    "notImplemented": "Not Implemented",
+    "badGateway": "Bad Gateway",
+    "serviceUnavailable": "Service Unavailable",
+    "gatewayTimeout": "Gateway Timeout",
+    "httpVersionNotSupported": "HTTP Version Not Supported",
+    "anErrorOccurred": "An error occurred",
+    "goBack": "Quay lại",
+    "goToHomePage": "Trang chủ"
   }
 }

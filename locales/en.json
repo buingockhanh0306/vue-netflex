@@ -50,5 +50,42 @@
       "close": "Close",
       "send": "Send"
     }
+  },
+  "detail": {
+    "genres": "Genres:",
+    "releaseDate": "Release date:",
+    "runtime": "Runtime:",
+    "minutes": "minutes",
+    "votes": "votes",
+    "watchNow": "Watch Now",
+    "watchTrailer": "Watch trailer",
+    "mainActor": "Main actor",
+    "filmsTop": "Films Top"
+  },
+  "error": {
+    "badRequest": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "pageNotFound": "Page Not Found",
+    "methodNotAllowed": "Method Not Allowed",
+    "notAcceptable": "Not Acceptable",
+    "proxyAuthenticationRequired": "Proxy Authentication Required",
+    "conflictingRequest": "Conflicting Request",
+    "gone": "Gone",
+    "contentLengthRequired": "Content Length Required",
+    "preconditionFailed": "Precondition Failed",
+    "requestEntityTooLong": "Request Entity Too Long",
+    "requestUriTooLong": "Request URI Too Long",
+    "unsupportedMediaType": "Unsupported Media Type",
+    "tooManyConnections": "Too Many Connections",
+    "internalServerError": "Internal Server Error",
+    "notImplemented": "Not Implemented",
+    "badGateway": "Bad Gateway",
+    "serviceUnavailable": "Service Unavailable",
+    "gatewayTimeout": "Gateway Timeout",
+    "httpVersionNotSupported": "HTTP Version Not Supported",
+    "anErrorOccurred": "An error occurred",
+    "goBack": "Go Back",
+    "goToHomePage": "Go to Home Page"
   }
 }
