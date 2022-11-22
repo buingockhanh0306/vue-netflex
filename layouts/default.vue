@@ -204,7 +204,7 @@ export default {
     ChangeLanguages,
   },
   async mounted() {
-    // await this.getFilmsTopRate();
+    await this.getFilmsTopRate();
   },
   methods: {
     async getFilmsTopRate() {
