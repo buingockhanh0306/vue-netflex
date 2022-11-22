@@ -7,7 +7,9 @@
     "signout": "Đăng xuất",
     "filmsUpComing": "Phim sắp chiếu",
     "filmsTop": "Phim top",
-    "filmsPopular": "Phim phổ biến"
+    "filmsPopular": "Phim phổ biến",
+    "watchNow": "Xem ngay",
+    "watchTrailer": "Xem trailer"
   },
   "snackbar": {
     "close": "Đóng",

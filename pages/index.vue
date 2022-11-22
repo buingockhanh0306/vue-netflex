@@ -37,16 +37,25 @@ export default {
       return this.$store.state.totalPagePopular;
     },
   },
-  async mounted() {
+  mounted() {
     this.$store.commit("SET_LOADING", true);
-    await this.getFilmsPopular();
-    await this.getFilmsTopRate();
-    await this.getFilmsUpComing();
+    this.getFilmsPopular();
+    this.getFilmsTopRate();
+    this.getFilmsUpComing();
     this.$store.commit("SET_LOADING", false);
   },
   watch: {
     page() {
       this.getFilmsPopular();
+    },
+    watch: {
+      "$i18n.locale"() {
+        this.$store.commit("SET_LOADING", true);
+        this.getFilmsPopular();
+        this.getFilmsTopRate();
+        this.getFilmsUpComing();
+        this.$store.commit("SET_LOADING", false);
+      },
     },
   },
   methods: {

@@ -5,7 +5,7 @@
         <v-icon @click="onClick()" color="#fff" x-large>mdi-play</v-icon>
       </div>
     </v-img>
-    <div class="card-title mt-2" @click="onClick()">
+    <div class="card-title my-4" @click="onClick()">
       {{ title }}
     </div>
   </div>
@@ -56,5 +56,8 @@ export default {
   font-weight: 600;
   text-align: center;
   cursor: pointer;
+}
+.card-title:hover {
+  color: var(--hover-color);
 }
 </style>

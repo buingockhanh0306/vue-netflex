@@ -30,13 +30,23 @@ export default {
       return localStorage.getItem("watchTitle");
     },
   },
-  async mounted() {
+  mounted() {
     this.$store.commit("SET_LOADING", true);
-    await this.getFilmsVideos();
-    await this.getFilmsSimilar();
-    await this.getFilmsTopRate();
-    await this.getFilmsNowPlaying();
+    this.getFilmsVideos();
+    this.getFilmsSimilar();
+    this.getFilmsTopRate();
+    this.getFilmsNowPlaying();
     this.$store.commit("SET_LOADING", false);
+  },
+  watch: {
+    "$i18n.locale"() {
+      this.$store.commit("SET_LOADING", true);
+      this.getFilmsVideos();
+      this.getFilmsSimilar();
+      this.getFilmsTopRate();
+      this.getFilmsNowPlaying();
+      this.$store.commit("SET_LOADING", false);
+    },
   },
   methods: {
     ...mapActions("filmsStore", [

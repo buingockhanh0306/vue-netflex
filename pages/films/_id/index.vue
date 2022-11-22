@@ -30,14 +30,25 @@ export default {
     };
   },
 
-  async mounted() {
+  mounted() {
     this.$store.commit("SET_LOADING", true);
-    await this.getFilmsRecommendations();
-    await this.getFilmsTopRate();
-    await this.getFilmDetail();
-    await this.getFilmsCredit();
+    this.getFilmsRecommendations();
+    this.getFilmsTopRate();
+    this.getFilmDetail();
+    this.getFilmsCredit();
     // await this.getFilmsReviews();
     this.$store.commit("SET_LOADING", false);
+  },
+  watch: {
+    "$i18n.locale"() {
+      this.$store.commit("SET_LOADING", true);
+      this.getFilmsRecommendations();
+      this.getFilmsTopRate();
+      this.getFilmDetail();
+      this.getFilmsCredit();
+      // await this.getFilmsReviews();
+      this.$store.commit("SET_LOADING", false);
+    },
   },
   methods: {
     ...mapActions("filmsStore", "tvStore", [

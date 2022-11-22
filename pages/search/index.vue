@@ -10,6 +10,7 @@
         <ImageCard
           :imageSrc="imageURL + item.backdrop_path"
           :title="item.title"
+          @onClick="handleViewDetail(item.id)"
         />
       </div>
       <Pagination :totalPage="totalPage" />
@@ -42,6 +43,13 @@ export default {
         }
       );
       this.dataSearch = dataFilms;
+    },
+    handleViewDetail(id) {
+      if (this.$route.path === "/tv") {
+        this.$router.push(`/tv/${id}`);
+      } else {
+        this.$router.push(`/films/${id}`);
+      }
     },
   },
 };

@@ -19,13 +19,13 @@
           <ButtonIcon
             @onClick="handleWatch(item.id)"
             color="green"
-            text="Xem ngay"
+            :text="$t('home.watchNow')"
             icon="mdi-arrow-right-bold-circle"
           />
           <ButtonIcon
             @onClick="handleWatch(item.id)"
             color="red"
-            text="Xem Trailer"
+            :text="$t('home.watchTrailer')"
             icon="mdi-play-circle"
           />
         </div>
@@ -48,7 +48,8 @@ export default {
   },
   methods: {
     handleWatch(id) {
-      localStorage.setItem("watchTitle", this.dataDetail.title);
+      console.log(id);
+      localStorage.setItem("watchTitle", this.data.title);
       if (this.$route.path === "/") {
         this.$router.push(`/films/${id}/watch`);
       } else {

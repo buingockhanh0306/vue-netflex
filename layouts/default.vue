@@ -17,7 +17,7 @@
           v-for="(item, index) in navItem"
           :key="index"
         >
-          <nuxt-link class="nav-link white--text" :to="item.navLink">{{
+          <nuxt-link class="nav-link" :to="item.navLink">{{
             item.name
           }}</nuxt-link>
         </div>
@@ -203,8 +203,13 @@ export default {
     ForgotPassword,
     ChangeLanguages,
   },
-  async mounted() {
-    await this.getFilmsTopRate();
+  mounted() {
+    this.getFilmsTopRate();
+  },
+  watch: {
+    "$i18n.locale"() {
+      this.getFilmsTopRate();
+    },
   },
   methods: {
     async getFilmsTopRate() {
@@ -249,6 +254,10 @@ export default {
 }
 .nav-link {
   text-decoration: none;
+  color: #fff;
+}
+.nav-link:hover {
+  color: var(--hover-color);
 }
 .drawer {
   z-index: 9999;

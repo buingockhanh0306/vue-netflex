@@ -7,7 +7,9 @@
     "signout": "Sign out",
     "filmsUpComing": "Films Up Coming",
     "filmsTop": "Films Top",
-    "filmsPopular": "Films Popular"
+    "filmsPopular": "Films Popular",
+    "watchNow": "Watch Now",
+    "watchTrailer": "Watch trailer"
   },
   "snackbar": {
     "close": "Close",

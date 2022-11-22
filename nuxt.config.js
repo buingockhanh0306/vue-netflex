@@ -72,10 +72,18 @@ export default {
     baseURL: process.env.BASE_URL,
     credentials: false,
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "text/plain",
+      Authorization: process.env.ACCESS_TOKEN,
+      "Content-Type": "application/json;charset=utf-8",
     },
+    // proxy: true,
   },
+  // proxy: {
+  //   "/api/": {
+  //     target: "https://api.themoviedb.org/3",
+  //     pathRewrite: { "^/api/": "" },
+  //     changeOrigin: true,
+  //   },
+  // },
   build: {},
 
   vuetify: {
