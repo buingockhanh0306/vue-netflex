@@ -1,6 +1,6 @@
 <template>
   <WatchPage
-    :title="watchTitle"
+    :title="filmDetail.title"
     :dataSimilar="filmsSimilar"
     :linkFilm="linkFilm"
     :dataTopRate="filmsTopRate"
@@ -19,32 +19,36 @@ export default {
       filmsVideos: [],
       filmsSimilar: [],
       filmsTopRate: [],
+      filmDetail: [],
       filmsNowPlaying: [],
     };
   },
   computed: {
     linkFilm() {
+      // return `https://www.2embed.ru/embed/tmdb/movie?id=${this.$route.params.id}`;
       return "https://www.youtube.com/embed/" + this.filmsVideos[0]?.key;
     },
     watchTitle() {
       return localStorage.getItem("watchTitle");
     },
   },
-  mounted() {
+  async mounted() {
     this.$store.commit("SET_LOADING", true);
-    this.getFilmsVideos();
-    this.getFilmsSimilar();
-    this.getFilmsTopRate();
-    this.getFilmsNowPlaying();
+    await this.getFilmsVideos();
+    await this.getFilmsSimilar();
+    await this.getFilmsTopRate();
+    await this.getFilmDetail();
+    await this.getFilmsNowPlaying();
     this.$store.commit("SET_LOADING", false);
   },
   watch: {
-    "$i18n.locale"() {
+    async "$i18n.locale"() {
       this.$store.commit("SET_LOADING", true);
-      this.getFilmsVideos();
-      this.getFilmsSimilar();
-      this.getFilmsTopRate();
-      this.getFilmsNowPlaying();
+      await this.getFilmsVideos();
+      await this.getFilmsSimilar();
+      await this.getFilmsTopRate();
+      await this.getFilmDetail();
+      await this.getFilmsNowPlaying();
       this.$store.commit("SET_LOADING", false);
     },
   },
@@ -83,6 +87,16 @@ export default {
         "filmsStore/getFilmsTopRate"
       );
       this.filmsTopRate = dataFilms.slice(0, 10);
+    },
+
+    async getFilmDetail() {
+      const dataFilms = await this.$store.dispatch(
+        "filmsStore/getFilmsDetail",
+        {
+          movie_id: this.$route.params.id,
+        }
+      );
+      this.filmDetail = dataFilms;
     },
   },
 };

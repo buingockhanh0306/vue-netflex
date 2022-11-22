@@ -47,7 +47,7 @@ export default {
 .icon-play {
   position: absolute;
   left: 50%;
-  background-color: orange;
+  background-color: var(--hover-color);
   border-radius: 50%;
   transform: translateX(-50%);
   opacity: 0;

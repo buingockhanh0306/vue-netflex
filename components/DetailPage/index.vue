@@ -155,7 +155,6 @@ export default {
   },
   methods: {
     handleWatch() {
-      localStorage.setItem("watchTitle", this.dataDetail.title);
       this.$router.push(`${this.$route.params.id}/watch`);
     },
   },

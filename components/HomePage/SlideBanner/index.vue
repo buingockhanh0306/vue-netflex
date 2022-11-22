@@ -49,7 +49,6 @@ export default {
   methods: {
     handleWatch(id) {
       console.log(id);
-      localStorage.setItem("watchTitle", this.data.title);
       if (this.$route.path === "/") {
         this.$router.push(`/films/${id}/watch`);
       } else {

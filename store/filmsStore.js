@@ -27,7 +27,10 @@ export const actions = {
   },
   async getFilmsVideos({}, payload) {
     const filmsData = await this.$axios.get(
-      `/movie/${payload.movie_id}/videos`
+      `/movie/${payload.movie_id}/videos`,
+      {
+        language: "en",
+      }
     );
     return filmsData.data.results;
   },

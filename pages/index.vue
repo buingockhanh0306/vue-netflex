@@ -37,11 +37,11 @@ export default {
       return this.$store.state.totalPagePopular;
     },
   },
-  mounted() {
+  async mounted() {
     this.$store.commit("SET_LOADING", true);
-    this.getFilmsPopular();
-    this.getFilmsTopRate();
-    this.getFilmsUpComing();
+    await this.getFilmsPopular();
+    await this.getFilmsTopRate();
+    await this.getFilmsUpComing();
     this.$store.commit("SET_LOADING", false);
   },
   watch: {
@@ -49,11 +49,11 @@ export default {
       this.getFilmsPopular();
     },
     watch: {
-      "$i18n.locale"() {
+      async "$i18n.locale"() {
         this.$store.commit("SET_LOADING", true);
-        this.getFilmsPopular();
-        this.getFilmsTopRate();
-        this.getFilmsUpComing();
+        await this.getFilmsPopular();
+        await this.getFilmsTopRate();
+        await this.getFilmsUpComing();
         this.$store.commit("SET_LOADING", false);
       },
     },

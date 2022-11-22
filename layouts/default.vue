@@ -207,8 +207,8 @@ export default {
     this.getFilmsTopRate();
   },
   watch: {
-    "$i18n.locale"() {
-      this.getFilmsTopRate();
+    async "$i18n.locale"() {
+      await this.getFilmsTopRate();
     },
   },
   methods: {
