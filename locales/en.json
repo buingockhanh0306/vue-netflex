@@ -62,7 +62,8 @@
     "watchNow": "Watch Now",
     "watchTrailer": "Watch trailer",
     "mainActor": "Main actor",
-    "filmsTop": "Films Top"
+    "filmsTop": "Films Top",
+    "comment": "Comments"
   },
   "error": {
     "badRequest": "Bad Request",

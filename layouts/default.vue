@@ -174,13 +174,12 @@ export default {
     return {
       inputSearch: "",
       isActive: false,
-      filmsTopRate: [],
       drawer: false,
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
     };
   },
   computed: {
-    ...mapState(["user", "loading"]),
+    ...mapState("filmsStore", ["user", "loading", "filmsTopRate"]),
     imageURL() {
       return this.user?.photoURL || "https://cdn.vuetifyjs.com/images/john.jpg";
     },
@@ -207,16 +206,13 @@ export default {
     this.getFilmsTopRate();
   },
   watch: {
-    async "$i18n.locale"() {
-      await this.getFilmsTopRate();
+    "$i18n.locale"() {
+      this.getFilmsTopRate();
     },
   },
   methods: {
-    async getFilmsTopRate() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsTopRate"
-      );
-      this.filmsTopRate = dataFilms;
+    getFilmsTopRate() {
+      this.$store.dispatch("filmsStore/getFilmsTopRate");
     },
     handleDisplayLogin() {
       this.$store.commit("SET_DISPLAY_LOGIN", true);

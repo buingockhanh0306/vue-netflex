@@ -1,93 +1,167 @@
 export const state = () => ({
   page: 1,
+  loading: false,
   totalPagePopular: 0,
+  filmsPopular: [],
+  filmsTopRate: [],
+  filmsUpComing: [],
+  filmsRecommendations: [],
+  filmDetail: {},
+  filmsCredit: [],
+  filmsReviews: [],
+  filmsVideos: [],
+  filmsSimilar: [],
+  filmsNowPlaying: [],
+  dataSearch: [],
 });
 export const actions = {
   setPage({ commit }, payload) {
     commit("SET_PAGE", payload);
   },
-  async getFilmsDetail({}, payload) {
+
+  async getFilmsDetail({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(`/movie/${payload.movie_id}`);
-    return filmsData.data;
+    commit("SET_FILM_DETAIL", filmsData.data);
+    commit("SET_LOADING", false);
   },
-  async getFilmsCredits({}, payload) {
+
+  async getFilmsCredits({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/credits`
     );
-    return filmsData.data.cast;
+    commit("SET_FILMS_CREDIT", filmsData.data.cast.slice(0, 6));
+    commit("SET_LOADING", false);
   },
+
   async getFilmsImages({}, payload) {
     return this.$axios.get(`/movie/${payload.movie_id}/images`);
   },
+
   async getFilmsKeywords({}, payload) {
     return this.$axios.get(`/movie/${payload.movie_id}/keywords`);
   },
-  async getFilmsReviews({}, payload) {
-    return this.$axios.get(`/movie/${payload.movie_id}/reviews`);
-  },
-  async getFilmsVideos({}, payload) {
+
+  async getFilmsVideos({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/videos`,
       {
         language: "en",
       }
     );
-    return filmsData.data.results;
+    commit("SET_FILMS_VIDEO", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
+
   async getFilmsLatest() {
     return this.$axios.get("/movie/latest");
   },
-  async getFilmsNowPlaying() {
+
+  async getFilmsNowPlaying({ commit }) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(`/movie/now_playing`);
-    return filmsData.data.results;
+    commit("SET_FILMS_NOW", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
-  async getFilmsPopular({}, payload) {
+
+  async getFilmsPopular({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(
       `/movie/popular?page=${payload.page}`
     );
-    return filmsData.data.results;
+    commit("SET_FILMS_POPULAR", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
-  async getFilmsTopRate() {
+
+  async getFilmsTopRate({ commit }) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(`/movie/top_rated`);
-    return filmsData.data.results;
+    commit("SET_FILMS_TOP_RATE", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
-  async getFilmsUpComing() {
+
+  async getFilmsUpComing({ commit }) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(`/movie/upcoming`);
-    return filmsData.data.results;
+    commit("SET_FILMS_UP_COMING", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
-  async getFilmsRecommendations({}, payload) {
+
+  async getFilmsRecommendations({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/recommendations`
     );
-    return filmsData.data.results;
+    commit("SET_FILMS_RECOMMENT", filmsData.data.results.slice(0, 10));
+    commit("SET_LOADING", false);
   },
 
-  async getFilmsReviews({}, payload) {
-    const filmsData = await this.$axios.get(
-      `/movie/${payload.movie_id}/reviews`
-    );
-    console.log(filmsData.data);
-    return filmsData.data.results;
+  async getFilmsReviews({ commit }, payload) {
+    commit("SET_LOADING", true);
+    this.$axios.get(`/movie/${payload.movie_id}/reviews`);
+    commit("SET_FILMS_REVIEW", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
 
-  async getFilmsSimilar({}, payload) {
+  async getFilmsSimilar({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/similar`
     );
-    return filmsData.data.results;
+    commit("SET_FILMS_SIMILAR", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
 
-  async getFilmsSearch({}, payload) {
-    console.log(payload.query);
+  async getFilmsSearch({ commit }, payload) {
+    commit("SET_LOADING", true);
     const filmsData = await this.$axios.get(
       `/search/multi?page=${payload.page}&query=${payload.query}`
     );
-    return filmsData.data.results;
+    commit("SET_FILMS_SEARCH", filmsData.data.results);
+    commit("SET_LOADING", false);
   },
 };
 
 export const mutations = {
+  SET_LOADING(state, data) {
+    state.loading = data;
+  },
   SET_PAGE(state, data) {
     state.page = data;
+  },
+  SET_FILMS_POPULAR(state, data) {
+    state.filmsPopular = data;
+  },
+  SET_FILMS_TOP_RATE(state, data) {
+    state.filmsTopRate = data;
+  },
+  SET_FILMS_UP_COMING(state, data) {
+    state.filmsUpComing = data;
+  },
+  SET_FILMS_RECOMMENT(state, data) {
+    state.filmsRecommendations = data;
+  },
+  SET_FILMS_REVIEW(state, data) {
+    state.filmsReviews = data;
+  },
+  SET_FILM_DETAIL(state, data) {
+    state.filmDetail = data;
+  },
+  SET_FILMS_CREDIT(state, data) {
+    state.filmsCredit = data;
+  },
+  SET_FILMS_VIDEO(state, data) {
+    state.filmsVideos = data;
+  },
+  SET_FILMS_SIMILAR(state, data) {
+    state.filmsSimilar = data;
+  },
+  SET_FILMS_NOW(state, data) {
+    state.filmsNowPlaying = data;
+  },
+  SET_FILMS_SEARCH(state, data) {
+    state.dataSearch = data;
   },
 };

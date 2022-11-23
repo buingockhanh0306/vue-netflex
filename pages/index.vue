@@ -6,7 +6,7 @@
     :dataUpComing="filmsUpComing"
     :dataTopRate="filmsTopRate"
     :dataPopular="filmsPopular"
-    :totalPage="7"
+    :totalPage="30"
   />
   <!-- <div></div> -->
 </template>
@@ -18,72 +18,56 @@ export default {
   name: "IndexPage",
   components: { HomePage },
   data() {
-    return {
-      tvPopular: [],
-      filmsPopular: [],
-      filmsTopRate: [],
-      filmsUpComing: [],
-    };
+    return {};
   },
   computed: {
-    ...mapState("filmsStore", ["posts", "page"]),
+    ...mapState("filmsStore", [
+      "posts",
+      "page",
+      "filmsPopular",
+      "filmsTopRate",
+      "filmsUpComing",
+    ]),
+    totalPagePopular() {
+      return this.$store.state.totalPagePopular;
+    },
+  },
+  mounted() {
+    this.getFilmsPopular();
+    this.getFilmsTopRate();
+    this.getFilmsUpComing();
+  },
+  watch: {
+    page() {
+      this.getFilmsPopular();
+    },
+    "$i18n.locale"() {
+      this.getFilmsPopular();
+      this.getFilmsTopRate();
+      this.getFilmsUpComing();
+    },
+  },
+  methods: {
     ...mapActions("filmsStore", "tvStore", [
       "getFilmsPopular",
       "getTVPopular",
       "getFilmsTopRate",
       "getFilmsUpComing",
     ]),
-    totalPagePopular() {
-      return this.$store.state.totalPagePopular;
-    },
-  },
-  async mounted() {
-    this.$store.commit("SET_LOADING", true);
-    await this.getFilmsPopular();
-    await this.getFilmsTopRate();
-    await this.getFilmsUpComing();
-    this.$store.commit("SET_LOADING", false);
-  },
-  watch: {
-    page() {
-      this.getFilmsPopular();
-    },
-    watch: {
-      async "$i18n.locale"() {
-        this.$store.commit("SET_LOADING", true);
-        await this.getFilmsPopular();
-        await this.getFilmsTopRate();
-        await this.getFilmsUpComing();
-        this.$store.commit("SET_LOADING", false);
-      },
-    },
-  },
-  methods: {
-    async getFilmsPopular() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsPopular",
-        {
-          page: this.page,
-        }
-      );
-      this.filmsPopular = dataFilms;
+    getFilmsPopular() {
+      this.$store.dispatch("filmsStore/getFilmsPopular", {
+        page: this.page,
+      });
     },
 
-    async getFilmsUpComing() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsUpComing",
-        {
-          page: this.page,
-        }
-      );
-      this.filmsUpComing = dataFilms;
+    getFilmsUpComing() {
+      this.$store.dispatch("filmsStore/getFilmsUpComing", {
+        page: this.page,
+      });
     },
 
-    async getFilmsTopRate() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsTopRate"
-      );
-      this.filmsTopRate = dataFilms;
+    getFilmsTopRate() {
+      this.$store.dispatch("filmsStore/getFilmsTopRate");
     },
   },
 };

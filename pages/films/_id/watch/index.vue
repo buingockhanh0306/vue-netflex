@@ -10,20 +10,21 @@
 
 <script>
 import WatchPage from "../../../../components/WatchPage/index.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: { WatchPage },
   data() {
-    return {
-      filmsVideos: [],
-      filmsSimilar: [],
-      filmsTopRate: [],
-      filmDetail: [],
-      filmsNowPlaying: [],
-    };
+    return {};
   },
   computed: {
+    ...mapState("filmsStore", [
+      "filmsVideos",
+      "filmsSimilar",
+      "filmsTopRate",
+      "filmDetail",
+      "filmsNowPlaying",
+    ]),
     linkFilm() {
       // return `https://www.2embed.ru/embed/tmdb/movie?id=${this.$route.params.id}`;
       return "https://www.youtube.com/embed/" + this.filmsVideos[0]?.key;
@@ -32,24 +33,20 @@ export default {
       return localStorage.getItem("watchTitle");
     },
   },
-  async mounted() {
-    this.$store.commit("SET_LOADING", true);
-    await this.getFilmsVideos();
-    await this.getFilmsSimilar();
-    await this.getFilmsTopRate();
-    await this.getFilmDetail();
-    await this.getFilmsNowPlaying();
-    this.$store.commit("SET_LOADING", false);
+  mounted() {
+    this.getFilmsVideos();
+    this.getFilmsSimilar();
+    this.getFilmsTopRate();
+    this.getFilmDetail();
+    this.getFilmsNowPlaying();
   },
   watch: {
-    async "$i18n.locale"() {
-      this.$store.commit("SET_LOADING", true);
-      await this.getFilmsVideos();
-      await this.getFilmsSimilar();
-      await this.getFilmsTopRate();
-      await this.getFilmDetail();
-      await this.getFilmsNowPlaying();
-      this.$store.commit("SET_LOADING", false);
+    "$i18n.locale"() {
+      this.getFilmsVideos();
+      this.getFilmsSimilar();
+      this.getFilmsTopRate();
+      this.getFilmDetail();
+      this.getFilmsNowPlaying();
     },
   },
   methods: {
@@ -59,44 +56,30 @@ export default {
       "getFilmsTopRate",
       "getFilmsNowPlaying",
     ]),
-    async getFilmsVideos() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsVideos",
-        { movie_id: this.$route.params.id }
-      );
-      this.filmsVideos = dataFilms;
+    getFilmsVideos() {
+      this.$store.dispatch("filmsStore/getFilmsVideos", {
+        movie_id: this.$route.params.id,
+      });
     },
 
-    async getFilmsSimilar() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsSimilar",
-        { movie_id: this.$route.params.id }
-      );
-      this.filmsSimilar = dataFilms.slice(0, 7);
+    getFilmsSimilar() {
+      this.$store.dispatch("filmsStore/getFilmsSimilar", {
+        movie_id: this.$route.params.id,
+      });
     },
 
-    async getFilmsNowPlaying() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsNowPlaying"
-      );
-      this.filmsNowPlaying = dataFilms;
+    getFilmsNowPlaying() {
+      this.$store.dispatch("filmsStore/getFilmsNowPlaying");
     },
 
-    async getFilmsTopRate() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsTopRate"
-      );
-      this.filmsTopRate = dataFilms.slice(0, 10);
+    getFilmsTopRate() {
+      this.$store.dispatch("filmsStore/getFilmsTopRate");
     },
 
-    async getFilmDetail() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsDetail",
-        {
-          movie_id: this.$route.params.id,
-        }
-      );
-      this.filmDetail = dataFilms;
+    getFilmDetail() {
+      this.$store.dispatch("filmsStore/getFilmsDetail", {
+        movie_id: this.$route.params.id,
+      });
     },
   },
 };

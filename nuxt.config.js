@@ -22,7 +22,7 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  buildModules: ["@nuxtjs/vuetify"],
+  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/moment"],
 
   modules: [
     "@nuxtjs/i18n",
@@ -65,6 +65,7 @@ export default {
     "~/plugins/lazyLoad.js",
     "~/plugins/starRate.js",
     "~/plugins/vuelidate.js",
+    // "~/plugins/moment.js",
     // "~/plugins/firebase.js",
   ],
 

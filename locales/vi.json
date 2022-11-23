@@ -62,7 +62,8 @@
     "watchNow": "Xem ngay",
     "watchTrailer": "Xem trailer",
     "mainActor": "Diễn viên chính",
-    "filmsTop": "Phim Top"
+    "filmsTop": "Phim Top",
+    "comment": "Bình luận"
   },
   "error": {
     "badRequest": "Bad Request",

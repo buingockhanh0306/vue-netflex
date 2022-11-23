@@ -18,90 +18,65 @@ import DetailPage from "../../../components/DetailPage/index.vue";
 export default {
   components: { ButtonDefault, DetailPage },
   computed: {
-    ...mapState("filmsStore", ["page"]),
+    ...mapState("filmsStore", [
+      "filmsRecommendations",
+      "filmDetail",
+      "filmsTopRate",
+      "filmsReviews",
+      "filmsCredit",
+      "page",
+    ]),
   },
   data() {
-    return {
-      filmsRecommendations: [],
-      filmsTopRate: [],
-      filmDetail: [],
-      filmsCredit: [],
-      filmsReviews: [],
-    };
+    return {};
   },
 
-  async mounted() {
-    this.$store.commit("SET_LOADING", true);
-    await this.getFilmsRecommendations();
-    await this.getFilmsTopRate();
-    await this.getFilmDetail();
-    await this.getFilmsCredit();
+  mounted() {
+    this.getFilmsRecommendations();
+    this.getFilmsTopRate();
+    this.getFilmDetail();
+    this.getFilmsCredit();
     // await this.getFilmsReviews();
-    this.$store.commit("SET_LOADING", false);
   },
   watch: {
-    async "$i18n.locale"() {
-      this.$store.commit("SET_LOADING", true);
-      await this.getFilmsRecommendations();
-      await this.getFilmsTopRate();
-      await this.getFilmDetail();
-      await this.getFilmsCredit();
+    "$i18n.locale"() {
+      this.getFilmsRecommendations();
+      this.getFilmsTopRate();
+      this.getFilmDetail();
+      this.getFilmsCredit();
       // await this.getFilmsReviews();
-      this.$store.commit("SET_LOADING", false);
     },
   },
   methods: {
-    ...mapActions("filmsStore", "tvStore", [
+    ...mapActions("filmsStore", [
       "getFilmsRecommendations",
       "getFilmDetail",
       "getFilmsTopRate",
       "getFilmsReviews",
     ]),
-    async getFilmsRecommendations() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsRecommendations",
-        {
-          movie_id: this.$route.params.id,
-        }
-      );
-      this.filmsRecommendations = dataFilms.filter((item, index) => index < 10);
+    getFilmsRecommendations() {
+      this.$store.dispatch("filmsStore/getFilmsRecommendations", {
+        movie_id: this.$route.params.id,
+      });
+      // this.filmsRecommendations = dataFilms.filter((item, index) => index < 10);
     },
 
-    async getFilmsCredit() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsCredits",
-        {
-          movie_id: this.$route.params.id,
-        }
-      );
-      this.filmsCredit = dataFilms.slice(0, 6);
+    getFilmsCredit() {
+      this.$store.dispatch("filmsStore/getFilmsCredits", {
+        movie_id: this.$route.params.id,
+      });
+      // this.filmsCredit = dataFilms.slice(0, 6);
     },
 
-    // async getFilmsReviews() {
-    //   const dataFilms = await this.$store.dispatch(
-    //     "filmsStore/getFilmsReviews",
-    //     {
-    //       movie_id: this.$route.params.id,
-    //     }
-    //   );
-    //   this.filmsReviews = dataFilms.filter((item, index) => index < 4);
-    // },
-
-    async getFilmDetail() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsDetail",
-        {
-          movie_id: this.$route.params.id,
-        }
-      );
-      this.filmDetail = dataFilms;
+    getFilmDetail() {
+      this.$store.dispatch("filmsStore/getFilmsDetail", {
+        movie_id: this.$route.params.id,
+      });
     },
 
-    async getFilmsTopRate() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsTopRate"
-      );
-      this.filmsTopRate = dataFilms.slice(0, 10);
+    getFilmsTopRate() {
+      this.$store.dispatch("filmsStore/getFilmsTopRate");
+      // this.filmsTopRate = dataFilms.slice(0, 10);
     },
 
     handleWatch() {

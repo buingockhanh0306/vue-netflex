@@ -19,30 +19,33 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import ImageCard from "../../components/common/ImageCard";
 export default {
   components: { ImageCard },
-  data: () => ({
-    dataSearch: [],
-  }),
-  async mounted() {
-    await this.getFilmsSearch();
-  },
   computed: {
+    ...mapState("filmsStore", ["dataSearch"]),
     imageURL() {
       return process.env.imageURL;
     },
   },
+
+  mounted() {
+    this.getFilmsSearch();
+  },
+
+  watch: {
+    "$route.query.q"() {
+      this.getFilmsSearch();
+    },
+  },
   methods: {
-    async getFilmsSearch() {
-      const dataFilms = await this.$store.dispatch(
-        "filmsStore/getFilmsSearch",
-        {
-          page: 1,
-          query: encodeURIComponent(this.$route.query.q),
-        }
-      );
-      this.dataSearch = dataFilms;
+    ...mapActions("filmsStore", ["getFilmsSearch"]),
+    getFilmsSearch() {
+      this.$store.dispatch("filmsStore/getFilmsSearch", {
+        page: 1,
+        query: encodeURIComponent(this.$route.query.q),
+      });
     },
     handleViewDetail(id) {
       if (this.$route.path === "/tv") {
@@ -58,7 +61,7 @@ export default {
 <style scoped>
 .heading-search {
   font-size: 2.4rem;
-  color: var(--text-color);
+  color: var(--hover-color);
   margin: 50px 0;
 }
 .search-value {

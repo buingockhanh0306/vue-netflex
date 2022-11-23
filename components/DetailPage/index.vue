@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="container">
-      <v-row :align="align" no-gutters>
+      <v-row no-gutters>
         <v-col class="col-md-9">
           <v-row>
             <v-col class="col-md-4">
@@ -23,7 +23,8 @@
                   >
                 </div>
                 <p>
-                  {{ $t("detail.releaseDate") }} {{ dataDetail.release_date }}
+                  {{ $t("detail.releaseDate") }}
+                  {{ formatDate(dataDetail.release_date) }}
                 </p>
                 <p>
                   {{ $t("detail.runtime") }} {{ dataDetail.runtime }}
@@ -156,6 +157,9 @@ export default {
   methods: {
     handleWatch() {
       this.$router.push(`${this.$route.params.id}/watch`);
+    },
+    formatDate(date) {
+      return this.$moment(date).format("DD/MM/YYYY");
     },
   },
 };

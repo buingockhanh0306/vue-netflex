@@ -1,7 +1,7 @@
 <template>
   <v-list class="list-comments" two-line>
-    <h2>Bình luận</h2>
-    <template v-for="(item, index) in data">
+    <h2>{{ $t("detail.comment") }}</h2>
+    <template v-for="item in data">
       <v-subheader v-if="item.id" :key="item.id">
         {{ item.author }}
       </v-subheader>
@@ -10,7 +10,7 @@
         :key="index"
         :inset="item.inset"
       ></v-divider> -->
-      <v-list-item v-else>
+      <!-- <v-list-item v-else>
         <v-list-item-avatar>
           <img :src="item.author_details.avatar_path" />
         </v-list-item-avatar>
@@ -18,7 +18,7 @@
           <v-list-item-title v-html="item.author"></v-list-item-title>
           <v-list-item-subtitle v-html="item.author"></v-list-item-subtitle>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
     </template>
   </v-list>
 </template>
