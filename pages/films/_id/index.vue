@@ -5,7 +5,7 @@
       :textSlide="$t('detail.filmsTop')"
       :dataRecommendations="filmsRecommendations"
       :dataTopRate="filmsTopRate"
-      :dataReview="filmsReviews.results"
+      :dataReview="filmsReviews"
       :dataCredit="filmsCredit"
     />
   </div>
@@ -36,7 +36,7 @@ export default {
     this.getFilmsTopRate();
     this.getFilmDetail();
     this.getFilmsCredit();
-    // await this.getFilmsReviews();
+    this.getFilmsReviews();
   },
   watch: {
     "$i18n.locale"() {
@@ -44,7 +44,7 @@ export default {
       this.getFilmsTopRate();
       this.getFilmDetail();
       this.getFilmsCredit();
-      // await this.getFilmsReviews();
+      this.getFilmsReviews();
     },
   },
   methods: {
@@ -79,6 +79,11 @@ export default {
       // this.filmsTopRate = dataFilms.slice(0, 10);
     },
 
+    getFilmsReviews() {
+      this.$store.dispatch("filmsStore/getFilmsReviews", {
+        movie_id: this.$route.params.id,
+      });
+    },
     handleWatch() {
       localStorage.setItem("watchTitle", this.dataDetail.title);
       this.$router.push(`${this.$route.params.id}/watch`);

@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-card>
+    <v-card class="navbar">
       <v-app-bar color="primary" dark>
         <v-app-bar-nav-icon class="d-md-none" @click="drawer = true" />
 
@@ -33,11 +33,11 @@
           :class="isActive ? 'search-active' : ''"
           :placeholder="$t('home.pleaseEnterValue')"
         />
-        <v-btn v-if="!isActive" icon>
-          <v-icon @click="handleDisplaySearch()">mdi-magnify</v-icon>
+        <v-btn @click="handleDisplaySearch()" v-if="!isActive" icon>
+          <v-icon>mdi-magnify</v-icon>
         </v-btn>
-        <v-btn v-else icon>
-          <v-icon @click="handleDisplaySearch()">mdi-close</v-icon>
+        <v-btn @click="handleDisplaySearch()" v-else icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <ChangeLanguages />
         <v-menu left bottom>
@@ -118,7 +118,7 @@
 
     <!-- End Drawer -->
     <Loading v-if="loading" />
-    <v-main class="primary">
+    <v-main class="primary main">
       <SlideBanner
         v-if="this.$route.path === '/' || this.$route.path === '/tv'"
         :data="filmsTopRate"
@@ -248,6 +248,13 @@ export default {
 .poiter {
   cursor: pointer;
 }
+.navbar {
+  position: fixed;
+  z-index: 9999999;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 .nav-link {
   text-decoration: none;
   color: #fff;
@@ -257,6 +264,7 @@ export default {
 }
 .drawer {
   z-index: 9999;
+  margin-top: 60px;
 }
 .header-drawer {
   margin: 10px 10px;
@@ -285,5 +293,8 @@ export default {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+.main {
+  margin-top: 60px;
 }
 </style>

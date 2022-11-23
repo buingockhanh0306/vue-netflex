@@ -2,7 +2,7 @@
   <v-list class="list-comments" two-line>
     <h2>{{ $t("detail.comment") }}</h2>
     <template v-for="item in data">
-      <v-subheader v-if="item.id" :key="item.id">
+      <v-subheader v-if="true" :key="item.id">
         {{ item.author }}
       </v-subheader>
       <!-- <v-divider

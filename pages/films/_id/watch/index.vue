@@ -5,6 +5,7 @@
     :linkFilm="linkFilm"
     :dataTopRate="filmsTopRate"
     :dataNowPlaying="filmsNowPlaying"
+    :dataSocial="filmSocial"
   />
 </template>
 
@@ -24,6 +25,7 @@ export default {
       "filmsTopRate",
       "filmDetail",
       "filmsNowPlaying",
+      "filmSocial",
     ]),
     linkFilm() {
       // return `https://www.2embed.ru/embed/tmdb/movie?id=${this.$route.params.id}`;
@@ -39,6 +41,7 @@ export default {
     this.getFilmsTopRate();
     this.getFilmDetail();
     this.getFilmsNowPlaying();
+    this.getFilmSocial();
   },
   watch: {
     "$i18n.locale"() {
@@ -47,6 +50,7 @@ export default {
       this.getFilmsTopRate();
       this.getFilmDetail();
       this.getFilmsNowPlaying();
+      this.getFilmSocial();
     },
   },
   methods: {
@@ -55,6 +59,7 @@ export default {
       "getFilmsSimilar",
       "getFilmsTopRate",
       "getFilmsNowPlaying",
+      "getFilmSocial",
     ]),
     getFilmsVideos() {
       this.$store.dispatch("filmsStore/getFilmsVideos", {
@@ -78,6 +83,11 @@ export default {
 
     getFilmDetail() {
       this.$store.dispatch("filmsStore/getFilmsDetail", {
+        movie_id: this.$route.params.id,
+      });
+    },
+    getFilmSocial() {
+      this.$store.dispatch("filmsStore/getFilmSocial", {
         movie_id: this.$route.params.id,
       });
     },

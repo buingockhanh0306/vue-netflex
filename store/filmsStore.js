@@ -13,6 +13,7 @@ export const state = () => ({
   filmsSimilar: [],
   filmsNowPlaying: [],
   dataSearch: [],
+  dataSocial: {},
 });
 export const actions = {
   setPage({ commit }, payload) {
@@ -100,7 +101,7 @@ export const actions = {
 
   async getFilmsReviews({ commit }, payload) {
     commit("SET_LOADING", true);
-    this.$axios.get(`/movie/${payload.movie_id}/reviews`);
+    const filmsData = this.$axios.get(`/movie/${payload.movie_id}/reviews`);
     commit("SET_FILMS_REVIEW", filmsData.data.results);
     commit("SET_LOADING", false);
   },
@@ -110,7 +111,7 @@ export const actions = {
     const filmsData = await this.$axios.get(
       `/movie/${payload.movie_id}/similar`
     );
-    commit("SET_FILMS_SIMILAR", filmsData.data.results);
+    commit("SET_FILMS_SIMILAR", filmsData.data.results.slice(0, 10));
     commit("SET_LOADING", false);
   },
 
@@ -120,6 +121,14 @@ export const actions = {
       `/search/multi?page=${payload.page}&query=${payload.query}`
     );
     commit("SET_FILMS_SEARCH", filmsData.data.results);
+    commit("SET_LOADING", false);
+  },
+  async getFilmSocial({ commit }, payload) {
+    commit("SET_LOADING", true);
+    const filmsData = await this.$axios.get(
+      `/movie/${payload.movie_id}/external_ids`
+    );
+    commit("SET_FILMS_SOCIAL", filmsData.data);
     commit("SET_LOADING", false);
   },
 };
@@ -163,5 +172,8 @@ export const mutations = {
   },
   SET_FILMS_SEARCH(state, data) {
     state.dataSearch = data;
+  },
+  SET_FILMS_SOCIAL(state, data) {
+    state.dataSocial = data;
   },
 };
