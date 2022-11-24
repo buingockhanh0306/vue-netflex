@@ -264,7 +264,7 @@ export default {
 }
 .drawer {
   z-index: 9999;
-  margin-top: 60px;
+  padding-top: 60px;
 }
 .header-drawer {
   margin: 10px 10px;

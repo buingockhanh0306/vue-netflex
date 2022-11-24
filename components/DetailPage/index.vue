@@ -11,16 +11,17 @@
             <v-col class="col-md-8 mb-6">
               <div>
                 <h1>{{ dataDetail.title }}</h1>
-                <div class="my-4">
-                  {{ $t("detail.genres") }}
-                  <v-chip
-                    class="mx-1"
-                    small
-                    color="blue"
-                    v-for="item in genres"
-                    :key="item.id"
-                    >{{ item.name }}</v-chip
-                  >
+                <div class="my-4 genres">
+                  <span>{{ $t("detail.genres") }}</span>
+                  <div class="group-chip">
+                    <v-chip
+                      small
+                      color="blue"
+                      v-for="item in genres"
+                      :key="item.id"
+                      >{{ item.name }}</v-chip
+                    >
+                  </div>
                 </div>
                 <p>
                   {{ $t("detail.releaseDate") }}
@@ -108,6 +109,7 @@ import HeadingSlide from "../common/Text/HeadingSlide.vue";
 import Popular from "../HomePage/Popular/index.vue";
 import SideBarRight from "../common/SideBarRight/index.vue";
 import Comments from "../common/Comments/index.vue";
+import randomColor from "../../utils/randomColor";
 export default {
   components: {
     Rating,
@@ -124,20 +126,6 @@ export default {
     dataTopRate: Array,
     dataDetail: Object,
     dataCredit: Array,
-  },
-  data() {
-    return {
-      colors: [
-        "blue",
-        "green",
-        "red",
-        "orange",
-        "brown",
-        "purple",
-        "yellow",
-        "black",
-      ],
-    };
   },
   computed: {
     imageURL() {
@@ -179,6 +167,17 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.genres {
+  display: flex;
+}
+.genres span {
+  min-width: 80px;
+}
+.group-chip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 @media only screen and (max-width: 768px) {
   .detail-button {

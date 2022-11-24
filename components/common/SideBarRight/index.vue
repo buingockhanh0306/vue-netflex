@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-right">
-    <h3>Phim liên quan</h3>
+    <h3>{{ $t("watch.filmsSimilar") }}</h3>
     <div
       @click="handleWatch(item.id)"
       class="sidebar-right-item mt-4"
@@ -13,7 +13,7 @@
         :src="imageURL + item.poster_path"
       ></v-img>
       <div>
-        <h5>{{ item.title }}</h5>
+        <h5 class="film-name">{{ item.title }}</h5>
         <Rating :value="item.vote_average" :size="12" />
       </div>
     </div>
@@ -46,6 +46,9 @@ export default {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+}
+.sidebar-right-item:hover .film-name {
+  color: var(--hover-color);
 }
 .character {
   display: flex;

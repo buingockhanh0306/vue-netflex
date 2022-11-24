@@ -90,5 +90,11 @@
     "anErrorOccurred": "An error occurred",
     "goBack": "Go Back",
     "goToHomePage": "Go to Home Page"
+  },
+  "watch": {
+    "filmsSimilar": "Recommended",
+    "filmsTop": "Films Top",
+    "nowPlaying": "Now Playing",
+    "rate": "Vote Rate:"
   }
 }

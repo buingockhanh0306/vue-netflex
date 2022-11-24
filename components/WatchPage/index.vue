@@ -16,7 +16,7 @@
         <h1 class="watchTitle">{{ title }}</h1>
         <div class="social-group">
           <a
-            :href="`http://facebook.com/${dataSocial.facebook_id}`"
+            :href="linkSocial('facebook', dataSocial?.facebook_id)"
             target="_blank"
           >
             <v-chip class="ma-2 social-item" small color="#1773ea" label>
@@ -25,7 +25,7 @@
             </v-chip>
           </a>
           <a
-            :href="`http://facebook.com/${dataSocial.facebook_id}`"
+            :href="linkSocial('instagram', dataSocial?.instagram_id)"
             target="_blank"
           >
             <v-chip class="ma-2 social-item" small color="#bb3380" label>
@@ -34,7 +34,7 @@
             </v-chip>
           </a>
           <a
-            :href="`http://facebook.com/${dataSocial.facebook_id}`"
+            :href="linkSocial('twitter', dataSocial?.twitter_id)"
             target="_blank"
           >
             <v-chip class="ma-2 social-item" small color="#1c9cea" label>
@@ -43,14 +43,15 @@
             </v-chip>
           </a>
         </div>
-        <Rating :readonly="false" :value="0" :size="16" />
+        <h3 class="rate-text">{{ $t("watch.rate") }}</h3>
+        <Rating :readonly="false" :value="0" :size="18" />
       </v-col>
       <v-col class="col-md-4 d-none d-md-block">
         <SideBarRight :data="dataSimilar" />
       </v-col>
     </v-row>
-    <Popular text="Phim Top" :dataSlide="dataTopRate" />
-    <Popular text="Now Playing" :dataSlide="dataNowPlaying" />
+    <Popular :text="$t('watch.filmsTop')" :dataSlide="dataTopRate" />
+    <Popular :text="$t('watch.nowPlaying')" :dataSlide="dataNowPlaying" />
   </div>
 </template>
 
@@ -68,6 +69,13 @@ export default {
     dataTopRate: Array,
     dataNowPlaying: Array,
     dataSocial: Object,
+  },
+  methods: {
+    linkSocial(nameSocial, id) {
+      return id
+        ? `http://${nameSocial}.com/${id}`
+        : `http://${nameSocial}.com/`;
+    },
   },
 };
 </script>
@@ -99,5 +107,9 @@ export default {
 }
 .social-item {
   cursor: pointer;
+}
+.rate-text {
+  color: var(--hover-color);
+  margin: 12px 0;
 }
 </style>
