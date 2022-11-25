@@ -16,35 +16,38 @@
         <h1 class="watchTitle">{{ title }}</h1>
         <div class="social-group">
           <a
-            :href="linkSocial('facebook', dataSocial?.facebook_id)"
+            :href="linkSocial('facebook', dataSocial.facebook_id)"
             target="_blank"
           >
-            <v-chip class="ma-2 social-item" small color="#1773ea" label>
+            <v-chip class="ma-1 social-item" small color="#1773ea" label>
               <v-icon left> mdi-facebook </v-icon>
               Facebook
             </v-chip>
           </a>
           <a
-            :href="linkSocial('instagram', dataSocial?.instagram_id)"
+            :href="linkSocial('instagram', dataSocial.instagram_id)"
             target="_blank"
           >
-            <v-chip class="ma-2 social-item" small color="#bb3380" label>
+            <v-chip class="ma-1 social-item" small color="#bb3380" label>
               <v-icon left> mdi-instagram </v-icon>
               Instagram
             </v-chip>
           </a>
           <a
-            :href="linkSocial('twitter', dataSocial?.twitter_id)"
+            :href="linkSocial('twitter', dataSocial.twitter_id)"
             target="_blank"
           >
-            <v-chip class="ma-2 social-item" small color="#1c9cea" label>
+            <v-chip class="ma-1 social-item" small color="#1c9cea" label>
               <v-icon left> mdi-twitter </v-icon>
               Twitter
             </v-chip>
           </a>
         </div>
         <h3 class="rate-text">{{ $t("watch.rate") }}</h3>
-        <Rating :readonly="false" :value="0" :size="18" />
+        <div class="rate-like">
+          <Rating :readonly="false" :value="0" :size="18" />
+          <LikeAndShare :idFacebook="dataSocial.facebook_id" />
+        </div>
       </v-col>
       <v-col class="col-md-4 d-none d-md-block">
         <SideBarRight :data="dataSimilar" />
@@ -59,9 +62,10 @@
 import SideBarRight from "../../components/common/SideBarRight/index.vue";
 import Popular from "../HomePage/Popular/index.vue";
 import Rating from "../common/Rating/index.vue";
+import LikeAndShare from "../common/LikeAndShare/index.vue";
 
 export default {
-  components: { SideBarRight, Popular, Rating },
+  components: { SideBarRight, Popular, Rating, LikeAndShare },
   props: {
     title: String,
     dataSimilar: Array,
@@ -72,6 +76,7 @@ export default {
   },
   methods: {
     linkSocial(nameSocial, id) {
+      console.log(this.dataSocial);
       return id
         ? `http://${nameSocial}.com/${id}`
         : `http://${nameSocial}.com/`;
@@ -107,6 +112,14 @@ export default {
 }
 .social-item {
   cursor: pointer;
+}
+.rate-like {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 .rate-text {
   color: var(--hover-color);
