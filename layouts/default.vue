@@ -39,47 +39,59 @@
         <v-btn @click="handleDisplaySearch()" v-else icon>
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <ChangeLanguages />
-        <v-menu left bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-avatar size="28">
-                <img :src="imageURL" alt="John" />
-              </v-avatar>
-            </v-btn>
-          </template>
-          <v-list v-if="!user" class="menu-login">
-            <v-list-item @click="() => handleDisplayLogin()">
-              <div class="icon-text">
-                <v-icon>mdi-login</v-icon>
-                {{ $t("home.login") }}
-              </div>
-            </v-list-item>
-            <v-list-item @click="() => handleDisplaySignUp()">
-              <div class="icon-text">
-                <v-icon>mdi-account-plus-outline</v-icon>
-                {{ $t("home.signup") }}
-              </div>
-            </v-list-item>
-          </v-list>
-
-          <v-list v-else class="menu-login">
-            <v-list-item>
-              <div class="icon-text">
+        <div
+          v-show="
+            !$vuetify.breakpoint.xs || (!isActive && $vuetify.breakpoint.xs)
+          "
+        >
+          <ChangeLanguages />
+        </div>
+        <div
+          v-show="
+            !$vuetify.breakpoint.xs || (!isActive && $vuetify.breakpoint.xs)
+          "
+        >
+          <v-menu left bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on">
                 <v-avatar size="28">
                   <img :src="imageURL" alt="John" />
                 </v-avatar>
-                {{ username }}
-              </div>
-            </v-list-item>
-            <v-list-item @click="() => handleDisplaySignOut()">
-              <div class="icon-text">
-                <v-icon>mdi-account-arrow-left-outline</v-icon>
-                {{ $t("home.signout") }}
-              </div>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+              </v-btn>
+            </template>
+            <v-list v-if="!user" class="menu-login">
+              <v-list-item @click="() => handleDisplayLogin()">
+                <div class="icon-text">
+                  <v-icon>mdi-login</v-icon>
+                  {{ $t("home.login") }}
+                </div>
+              </v-list-item>
+              <v-list-item @click="() => handleDisplaySignUp()">
+                <div class="icon-text">
+                  <v-icon>mdi-account-plus-outline</v-icon>
+                  {{ $t("home.signup") }}
+                </div>
+              </v-list-item>
+            </v-list>
+
+            <v-list v-else class="menu-login">
+              <v-list-item>
+                <div class="icon-text">
+                  <v-avatar size="28">
+                    <img :src="imageURL" alt="John" />
+                  </v-avatar>
+                  {{ username }}
+                </div>
+              </v-list-item>
+              <v-list-item @click="() => handleDisplaySignOut()">
+                <div class="icon-text">
+                  <v-icon>mdi-account-arrow-left-outline</v-icon>
+                  {{ $t("home.signout") }}
+                </div>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
         <Login />
         <SignUp />
         <ForgotPassword />
@@ -192,6 +204,9 @@ export default {
         { name: "TV Show", icon: "mdi-television-classic", navLink: "/tv" },
       ];
     },
+    break() {
+      return this.$vuetify.breakpoint;
+    },
   },
   components: {
     SlideBanner,
@@ -264,10 +279,14 @@ export default {
 }
 .drawer {
   z-index: 9999;
-  padding-top: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  // padding-top: 60px;
 }
 .header-drawer {
-  margin: 10px 10px;
+  margin: 60px 10px 10px;
 }
 .search {
   background-color: #333;
