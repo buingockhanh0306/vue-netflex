@@ -35,9 +35,7 @@ export default {
 .image-poster:hover .icon-play {
   opacity: 1;
 }
-.slide-item {
-  /* width: 100%; */
-}
+
 .card-image {
   background-color: transparent;
   width: 100%;

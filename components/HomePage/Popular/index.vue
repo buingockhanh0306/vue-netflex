@@ -1,10 +1,8 @@
 <template>
   <div>
-    <div>
-      <HeadingSlide :text="text" />
-      <div class="line"></div>
-      <Slide :data="dataSlide" />
-    </div>
+    <HeadingSlide :text="text" />
+    <div class="line"></div>
+    <Slide :data="dataSlide" />
   </div>
 </template>
 

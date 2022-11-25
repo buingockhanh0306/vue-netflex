@@ -1,11 +1,7 @@
 <template>
   <div>
     <swiper class="swiper" :options="responsiveSwiper">
-      <swiper-slide
-        class="slide-item"
-        v-for="(item, index) in data"
-        :key="index"
-      >
+      <swiper-slide v-for="(item, index) in data" :key="index">
         <ImageCard
           :imageSrc="imageURL + item.backdrop_path"
           :title="item.title || item.name"
@@ -50,7 +46,7 @@ export default {
 <style>
 .swiper {
   display: flex;
-  padding: 0 30px;
+  /* padding: 0 30px; */
 }
 /* .swiper-button-next {
   transform: translateX(20px);
