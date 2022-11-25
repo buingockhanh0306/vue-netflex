@@ -1,12 +1,14 @@
 <template>
-  <WatchPage
-    :title="filmDetail.title"
-    :dataSimilar="filmsSimilar"
-    :linkFilm="linkFilm"
-    :dataTopRate="filmsTopRate"
-    :dataNowPlaying="filmsNowPlaying"
-    :dataSocial="dataSocial"
-  />
+  <div id="fb-root">
+    <WatchPage
+      :title="filmDetail.title"
+      :dataSimilar="filmsSimilar"
+      :linkFilm="linkFilm"
+      :dataTopRate="filmsTopRate"
+      :dataNowPlaying="filmsNowPlaying"
+      :dataSocial="dataSocial"
+    />
+  </div>
 </template>
 
 <script>

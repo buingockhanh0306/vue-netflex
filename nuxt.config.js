@@ -7,6 +7,15 @@ export default {
     htmlAttrs: {
       lang: "en",
     },
+    script: [
+      {
+        async: true,
+        defer: true,
+        crossorigin: "anonymous",
+        nonce: "MJSKWAPT",
+        src: "https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v15.0&appId=785811806206122&autoLogAppEvents=1",
+      },
+    ],
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },

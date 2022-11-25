@@ -53,6 +53,15 @@
         <SideBarRight :data="dataSimilar" />
       </v-col>
     </v-row>
+    <div id="fb-root">
+      <div
+        class="fb-comments"
+        data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
+        data-width=""
+        data-numposts="5"
+      ></div>
+    </div>
+
     <Popular :text="$t('watch.filmsTop')" :dataSlide="dataTopRate" />
     <Popular :text="$t('watch.nowPlaying')" :dataSlide="dataNowPlaying" />
   </div>
