@@ -5,7 +5,11 @@
         <v-col class="col-md-9">
           <v-row>
             <v-col class="col-md-4">
-              <v-img alt="" :src="imageURL + dataDetail.poster_path"></v-img>
+              <v-img
+                alt=""
+                :src="imageURL + dataDetail.poster_path"
+                lazy-src="/images/loadingImage.gif"
+              />
               <!-- <v-img alt="" src="/images/back_drop.png"></v-img> -->
             </v-col>
             <v-col class="col-md-8 mb-6">
@@ -85,6 +89,7 @@
               <v-img
                 class="image-character"
                 :src="imageURL + item.profile_path"
+                lazy-src="/images/loadingImage.gif"
               ></v-img>
               <div class="name-character">
                 <span>{{ item.name }}</span>

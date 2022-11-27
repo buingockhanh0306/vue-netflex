@@ -9,10 +9,11 @@ export default {
     },
     script: [
       {
+        body: true,
         async: true,
         defer: true,
         crossorigin: "anonymous",
-        nonce: "MJSKWAPT",
+        nonce: "YdZkVa2p",
         src: "https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v15.0&appId=785811806206122&autoLogAppEvents=1",
       },
     ],

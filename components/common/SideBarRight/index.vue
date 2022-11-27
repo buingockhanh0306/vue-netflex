@@ -11,6 +11,7 @@
         height="50px"
         max-width="40px"
         :src="imageURL + item.poster_path"
+        lazy-src="/images/loadingImage.gif"
       ></v-img>
       <div>
         <h5 class="film-name">{{ item.title }}</h5>

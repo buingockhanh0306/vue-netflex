@@ -48,19 +48,19 @@
           <Rating :readonly="false" :value="0" :size="18" />
           <LikeAndShare :idFacebook="dataSocial.facebook_id" />
         </div>
+        <div id=""></div>
+        <div
+          class="fb-comments"
+          data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
+          data-width="500"
+          data-numposts="5"
+          data-lazy="true"
+        ></div>
       </v-col>
       <v-col class="col-md-4 d-none d-md-block">
         <SideBarRight :data="dataSimilar" />
       </v-col>
     </v-row>
-    <div id="fb-root">
-      <div
-        class="fb-comments"
-        data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
-        data-width=""
-        data-numposts="5"
-      ></div>
-    </div>
 
     <Popular :text="$t('watch.filmsTop')" :dataSlide="dataTopRate" />
     <Popular :text="$t('watch.nowPlaying')" :dataSlide="dataNowPlaying" />
@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     linkSocial(nameSocial, id) {
-      console.log(this.dataSocial);
       return id
         ? `http://${nameSocial}.com/${id}`
         : `http://${nameSocial}.com/`;
@@ -133,5 +132,8 @@ export default {
 .rate-text {
   color: var(--hover-color);
   margin: 12px 0;
+}
+.fb-reset {
+  color: #fff;
 }
 </style>

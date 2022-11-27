@@ -1,7 +1,7 @@
 <template>
   <iframe
     :src="link"
-    width="140"
+    width="160"
     height="24"
     style="border: none; overflow: hidden"
     scrolling="no"
