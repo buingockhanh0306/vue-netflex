@@ -5,6 +5,7 @@
     :color="color"
     :disabled="isDisable"
     @click="onClick()"
+    :small="$vuetify.breakpoint.xs"
     >{{ text }}<v-icon right dark> {{ icon }} </v-icon></v-btn
   >
 </template>

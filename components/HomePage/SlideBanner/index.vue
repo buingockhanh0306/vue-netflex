@@ -12,9 +12,9 @@
       :key="item.id"
       :src="imageURL + item.backdrop_path"
     >
-      <div class="k-text-banner d-none d-md-block">
+      <div class="k-text-banner">
         <h2 class="k-title">{{ item.title }}</h2>
-        <p>{{ item.overview }}</p>
+        <p class="d-none d-md-block">{{ item.overview }}</p>
         <div class="group-button">
           <ButtonIcon
             @onClick="handleWatch(item.id)"
@@ -77,5 +77,19 @@ export default {
   margin-top: 30px;
   display: flex;
   gap: 20px;
+}
+@media (max-width: 450px) {
+  .k-text-banner {
+    margin-left: 20px;
+    max-width: 50%;
+    .k-title {
+      font-size: 1.8rem;
+    }
+  }
+  .group-button {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+  }
 }
 </style>
