@@ -48,11 +48,7 @@ export default {
       });
     },
     handleViewDetail(id) {
-      if (this.$route.path === "/tv") {
-        this.$router.push(`/tv/${id}`);
-      } else {
-        this.$router.push(`/films/${id}`);
-      }
+      this.$router.push(`/films/${id}`);
     },
   },
 };

@@ -21,7 +21,7 @@
             item.name
           }}</nuxt-link>
         </div>
-
+        <button @click="Test()">click</button>
         <v-spacer></v-spacer>
 
         <input
@@ -80,7 +80,7 @@
                   <v-avatar size="28">
                     <img :src="imageURL" alt="John" />
                   </v-avatar>
-                  {{ username }}
+                  <span style="white-space: nowrap">{{ username }}</span>
                 </div>
               </v-list-item>
               <v-list-item @click="() => handleDisplaySignOut()">
@@ -131,10 +131,7 @@
     <!-- End Drawer -->
     <Loading v-if="loading" />
     <v-main class="primary main">
-      <SlideBanner
-        v-if="this.$route.path === '/' || this.$route.path === '/tv'"
-        :data="filmsTopRate"
-      />
+      <SlideBanner v-if="this.$route.path === '/'" :data="filmsTopRate" />
       <v-container>
         <Nuxt />
       </v-container>
@@ -191,7 +188,9 @@ export default {
     };
   },
   computed: {
-    ...mapState("filmsStore", ["user", "loading", "filmsTopRate"]),
+    ...mapState("filmsStore", ["loading", "filmsTopRate"]),
+    ...mapState(["user"]),
+    ...mapState("authentication", ["requestToken"]),
     imageURL() {
       return this.user?.photoURL || "https://cdn.vuetifyjs.com/images/john.jpg";
     },
@@ -201,7 +200,7 @@ export default {
     navItem() {
       return [
         { name: this.$t("home.home"), icon: "mdi-home", navLink: "/" },
-        { name: "TV Show", icon: "mdi-television-classic", navLink: "/tv" },
+        // { name: "Favourite", icon: "mdi-television-classic", navLink: "/" },
       ];
     },
     break() {
@@ -255,6 +254,11 @@ export default {
         .catch((error) => {
           // An error happened.
         });
+    },
+    Test() {
+      this.$store.dispatch("authentication/getSessionId", {
+        request_token: this.requestToken,
+      });
     },
   },
 };

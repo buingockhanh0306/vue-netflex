@@ -48,24 +48,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions("filmsStore", [
-      "getFilmsRecommendations",
-      "getFilmDetail",
-      "getFilmsTopRate",
-      "getFilmsReviews",
-    ]),
     getFilmsRecommendations() {
       this.$store.dispatch("filmsStore/getFilmsRecommendations", {
         movie_id: this.$route.params.id,
       });
-      // this.filmsRecommendations = dataFilms.filter((item, index) => index < 10);
     },
 
     getFilmsCredit() {
       this.$store.dispatch("filmsStore/getFilmsCredits", {
         movie_id: this.$route.params.id,
       });
-      // this.filmsCredit = dataFilms.slice(0, 6);
     },
 
     getFilmDetail() {
@@ -76,7 +68,6 @@ export default {
 
     getFilmsTopRate() {
       this.$store.dispatch("filmsStore/getFilmsTopRate");
-      // this.filmsTopRate = dataFilms.slice(0, 10);
     },
 
     getFilmsReviews() {

@@ -48,12 +48,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions("filmsStore", "tvStore", [
-      "getFilmsPopular",
-      "getTVPopular",
-      "getFilmsTopRate",
-      "getFilmsUpComing",
-    ]),
     getFilmsPopular() {
       this.$store.dispatch("filmsStore/getFilmsPopular", {
         page: this.page,

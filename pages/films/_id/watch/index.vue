@@ -56,13 +56,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions("filmsStore", [
-      "getFilmsVideos",
-      "getFilmsSimilar",
-      "getFilmsTopRate",
-      "getFilmsNowPlaying",
-      "getFilmSocial",
-    ]),
     getFilmsVideos() {
       this.$store.dispatch("filmsStore/getFilmsVideos", {
         movie_id: this.$route.params.id,

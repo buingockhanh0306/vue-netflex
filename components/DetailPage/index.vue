@@ -62,7 +62,7 @@
               </div>
             </v-col>
           </v-row>
-          <Comments :data="dataReview" />
+          <!-- <Comments :data="dataReview" /> -->
         </v-col>
 
         <v-col class="col-md-3 px-4 d-none d-md-block">

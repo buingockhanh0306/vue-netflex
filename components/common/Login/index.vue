@@ -87,6 +87,7 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
+import { mapState } from "vuex";
 export default {
   data: () => ({
     show: false,
@@ -105,7 +106,7 @@ export default {
       this.errorMessage = "";
     },
   },
-
+  computed: {},
   methods: {
     reset() {
       this.$refs.form.reset();
@@ -147,6 +148,7 @@ export default {
               message: this.$t("snackbar.loginSuccessfully"),
               status: "success",
             });
+            console.log(this.requestToken);
           })
           .catch((error) => {
             this.errorMessage = this.$t("modal.login.message.incorrect");
@@ -159,14 +161,15 @@ export default {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider)
         .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
+          // const credential = GoogleAuthProvider.credentialFromResult(result);
+          // const token = credential.accessToken;
           const user = result.user;
           const data = {
             displayName: user.displayName,
             photoURL: user.photoURL,
           };
           this.$store.commit("SET_USER", data);
+          this.$store.dispatch("authentication/getRequestToken");
           this.$store.commit("SET_DISPLAY_LOGIN", false);
           localStorage.setItem("user", JSON.stringify(data));
         })
